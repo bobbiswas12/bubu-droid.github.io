@@ -1,4 +1,4 @@
-# [bubudroid.github.io][websitelink]
+# [bubu-droid.github.io][websitelink]
 
 Repository for personal GitHub page.
 
