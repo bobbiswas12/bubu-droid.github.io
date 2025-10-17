@@ -1,1 +1,811 @@
-Hello World!
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Integration Fest 2025</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background: #0a0a0a;
+      color: #fff;
+      overflow-x: hidden;
+      cursor: none;
+    }
+
+    /* Custom Cursor */
+    .custom-cursor {
+      position: fixed;
+      width: 20px;
+      height: 20px;
+      border: 2px solid rgba(102, 126, 234, 0.8);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 10001;
+      transition: transform 0.2s ease, border-color 0.3s ease;
+      mix-blend-mode: difference;
+    }
+
+    .custom-cursor.hover {
+      transform: scale(2);
+      border-color: rgba(240, 147, 251, 1);
+      background: rgba(102, 126, 234, 0.2);
+    }
+
+    .cursor-trail {
+      position: fixed;
+      width: 8px;
+      height: 8px;
+      background: rgba(102, 126, 234, 0.6);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 10000;
+    }
+
+    /* Loading Screen */
+    .loading {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: #000;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      z-index: 10000;
+      transition: opacity 0.8s;
+    }
+
+    .loading.fade-out {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .integral-symbol {
+      font-size: 10rem;
+      background: linear-gradient(135deg, #667eea, #f093fb);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+
+      0%,
+      100% {
+        transform: scale(1);
+        filter: drop-shadow(0 0 20px rgba(102, 126, 234, 0.5));
+      }
+
+      50% {
+        transform: scale(1.05);
+        filter: drop-shadow(0 0 40px rgba(102, 126, 234, 1));
+      }
+    }
+
+    .equation-text {
+      font-size: 1.8rem;
+      color: #667eea;
+      margin: 20px 0;
+      font-style: italic;
+    }
+
+    .result-text {
+      font-size: 2.5rem;
+      font-weight: bold;
+      background: linear-gradient(135deg, #667eea, #f093fb);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-top: 30px;
+      opacity: 0;
+      animation: fadeIn 1s 2s forwards;
+    }
+
+    @keyframes fadeIn {
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
+
+      from {
+        opacity: 0;
+        transform: scale(0.9);
+      }
+    }
+
+    /* Celebration Container */
+    .celebration {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 9999;
+    }
+
+    /* Background */
+    .bg-canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+    }
+
+    /* Hero Section */
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 40px 20px;
+      z-index: 10;
+    }
+
+    .main-title {
+      font-size: 5rem;
+      font-weight: 900;
+      background: linear-gradient(135deg, #667eea, #764ba2, #f093fb);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 20px;
+      letter-spacing: 3px;
+      animation: floatTitle 3s ease-in-out infinite;
+      transition: transform 0.3s ease;
+    }
+
+    @keyframes floatTitle {
+
+      0%,
+      100% {
+        transform: translateY(0);
+      }
+
+      50% {
+        transform: translateY(-10px);
+      }
+    }
+
+    .subtitle {
+      font-size: 1.5rem;
+      color: #8892b0;
+      margin-bottom: 15px;
+      font-style: italic;
+    }
+
+    .tagline {
+      font-size: 1.3rem;
+      color: #b8c5ff;
+      margin-bottom: 40px;
+      letter-spacing: 1px;
+    }
+
+    .cta-buttons {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .btn {
+      padding: 18px 40px;
+      font-size: 1.1rem;
+      border-radius: 50px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      text-decoration: none;
+      border: none;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .btn::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 0;
+      height: 0;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.3);
+      transform: translate(-50%, -50%);
+      transition: width 0.6s, height 0.6s;
+    }
+
+    .btn:hover::before {
+      width: 300px;
+      height: 300px;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      color: white;
+      box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-5px) scale(1.05);
+      box-shadow: 0 15px 50px rgba(102, 126, 234, 0.6);
+    }
+
+    .btn-secondary {
+      background: rgba(255, 255, 255, 0.05);
+      color: white;
+      border: 2px solid #667eea;
+      backdrop-filter: blur(10px);
+    }
+
+    .btn-secondary:hover {
+      background: rgba(102, 126, 234, 0.2);
+      transform: translateY(-5px) scale(1.05);
+      border-color: rgba(102, 126, 234, 0.8);
+    }
+
+    /* Event Cards */
+    .events-container {
+      position: relative;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 30px;
+      max-width: 1400px;
+      margin: 60px auto;
+      padding: 0 20px;
+      z-index: 10;
+    }
+
+    .event-card {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(102, 126, 234, 0.3);
+      border-radius: 20px;
+      padding: 40px 30px;
+      text-align: center;
+      transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      cursor: pointer;
+      backdrop-filter: blur(10px);
+      position: relative;
+      overflow: hidden;
+      transform-style: preserve-3d;
+    }
+
+    .event-card::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: linear-gradient(45deg, transparent, rgba(102, 126, 234, 0.1), transparent);
+      transform: rotate(45deg);
+      transition: all 0.6s;
+    }
+
+    .event-card:hover::before {
+      left: 100%;
+    }
+
+    .event-card:hover {
+      transform: translateY(-20px) scale(1.05);
+      background: rgba(102, 126, 234, 0.15);
+      border-color: #667eea;
+      box-shadow: 0 25px 70px rgba(102, 126, 234, 0.5);
+    }
+
+    .event-card:active {
+      transform: translateY(-15px) scale(1.02);
+    }
+
+    .event-icon {
+      font-size: 4rem;
+      margin-bottom: 20px;
+      display: block;
+      transition: all 0.6s ease;
+      filter: drop-shadow(0 5px 15px rgba(102, 126, 234, 0.3));
+    }
+
+    .event-card:hover .event-icon {
+      transform: scale(1.3) rotateY(360deg);
+      filter: drop-shadow(0 10px 25px rgba(102, 126, 234, 0.8));
+    }
+
+    .event-title {
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: #b8c5ff;
+      margin-bottom: 10px;
+      letter-spacing: 2px;
+      transition: all 0.4s;
+    }
+
+    .event-card:hover .event-title {
+      color: #fff;
+      letter-spacing: 3px;
+      text-shadow: 0 0 20px rgba(102, 126, 234, 0.8);
+    }
+
+    .event-desc {
+      font-size: 0.9rem;
+      color: #8892b0;
+      line-height: 1.6;
+      opacity: 0;
+      transform: translateY(10px);
+      transition: all 0.4s;
+    }
+
+    .event-card:hover .event-desc {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Features Section */
+    .features-section {
+      position: relative;
+      padding: 100px 20px;
+      background: linear-gradient(to bottom, transparent, rgba(0, 0, 0, 0.8));
+      z-index: 10;
+    }
+
+    .section-title {
+      text-align: center;
+      font-size: 3rem;
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 20px;
+    }
+
+    .section-subtitle {
+      text-align: center;
+      font-size: 1.4rem;
+      color: #8892b0;
+      margin-bottom: 60px;
+      font-style: italic;
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 30px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .feature-card {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(102, 126, 234, 0.2);
+      border-radius: 20px;
+      padding: 40px;
+      transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .feature-card::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: linear-gradient(45deg, transparent, rgba(102, 126, 234, 0.1), transparent);
+      transform: rotate(45deg);
+      transition: all 0.5s;
+    }
+
+    .feature-card:hover::before {
+      left: 100%;
+    }
+
+    .feature-card:hover {
+      transform: translateY(-15px) scale(1.03);
+      background: rgba(255, 255, 255, 0.08);
+      border-color: #667eea;
+      box-shadow: 0 25px 60px rgba(102, 126, 234, 0.4);
+    }
+
+    .feature-icon {
+      font-size: 3rem;
+      margin-bottom: 20px;
+      transition: transform 0.5s ease;
+    }
+
+    .feature-card:hover .feature-icon {
+      transform: rotateY(360deg) scale(1.2);
+    }
+
+    .feature-title {
+      font-size: 1.5rem;
+      color: #b8c5ff;
+      margin-bottom: 15px;
+    }
+
+    .feature-desc {
+      color: #8892b0;
+      line-height: 1.6;
+    }
+
+    @media (max-width: 768px) {
+      body {
+        cursor: auto;
+      }
+
+      .custom-cursor,
+      .cursor-trail {
+        display: none;
+      }
+
+      .main-title {
+        font-size: 3rem;
+      }
+
+      .subtitle {
+        font-size: 1.2rem;
+      }
+
+      .section-title {
+        font-size: 2rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Custom Cursor -->
+  <div class="custom-cursor"></div>
+  <div class="cursor-trail"></div>
+
+  <!-- Loading Screen -->
+  <div class="loading" id="loading">
+    <div class="integral-symbol">∫</div>
+    <div class="equation-text">(Innovation + Creativity + Technology) dx</div>
+    <div class="result-text">= INTEGRATION FEST</div>
+  </div>
+
+  <!-- Celebration Container -->
+  <div class="celebration" id="celebration"></div>
+
+  <!-- Background Canvas -->
+  <canvas class="bg-canvas" id="bgCanvas"></canvas>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <h1 class="main-title" id="mainTitle">INTEGRATION FEST</h1>
+    <p class="subtitle">∫(Innovation + Creativity + Technology) dx</p>
+    <p class="tagline">Where Every Idea Converges Into Reality</p>
+    <div class="cta-buttons">
+      <button class="btn btn-primary">Explore Events</button>
+      <button class="btn btn-secondary">Register Now</button>
+    </div>
+  </section>
+
+  <!-- Event Cards -->
+  <div class="events-container">
+    <div class="event-card">
+      <span class="event-icon">🎭</span>
+      <h3 class="event-title">THEATRE</h3>
+      <p class="event-desc">Drama & Stage Performances</p>
+    </div>
+    <div class="event-card">
+      <span class="event-icon">🎬</span>
+      <h3 class="event-title">CINEMA</h3>
+      <p class="event-desc">Film Screenings & Reviews</p>
+    </div>
+    <div class="event-card">
+      <span class="event-icon">🎨</span>
+      <h3 class="event-title">ARTS</h3>
+      <p class="event-desc">Exhibitions & Galleries</p>
+    </div>
+    <div class="event-card">
+      <span class="event-icon">🎪</span>
+      <h3 class="event-title">EVENTS</h3>
+      <p class="event-desc">Workshops & Seminars</p>
+    </div>
+    <div class="event-card">
+      <span class="event-icon">🎯</span>
+      <h3 class="event-title">GAMING</h3>
+      <p class="event-desc">Tournaments & Competitions</p>
+    </div>
+    <div class="event-card">
+      <span class="event-icon">🎸</span>
+      <h3 class="event-title">MUSIC</h3>
+      <p class="event-desc">Concerts & Live Shows</p>
+    </div>
+    <div class="event-card">
+      <span class="event-icon">🎮</span>
+      <h3 class="event-title">E-SPORTS</h3>
+      <p class="event-desc">Digital Gaming Arena</p>
+    </div>
+    <div class="event-card">
+      <span class="event-icon">📸</span>
+      <h3 class="event-title">PHOTOGRAPHY</h3>
+      <p class="event-desc">Photo Exhibition & Contest</p>
+    </div>
+  </div>
+
+  <!-- Features Section -->
+  <section class="features-section">
+    <h2 class="section-title">The Complete Experience</h2>
+    <p class="section-subtitle">∫ (All Events) → Limitless Possibilities</p>
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-icon">🎨</div>
+        <h3 class="feature-title">Creative Integration</h3>
+        <p class="feature-desc">Merging art, design, and technology to create immersive experiences that transcend
+          traditional boundaries.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🚀</div>
+        <h3 class="feature-title">Technical Fusion</h3>
+        <p class="feature-desc">Advanced coding competitions, AI challenges, and robotics showcases converge in one
+          electrifying platform.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🎭</div>
+        <h3 class="feature-title">Cultural Synthesis</h3>
+        <p class="feature-desc">A seamless blend of global cultures through performances, exhibitions, and interactive
+          installations.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🧮</div>
+        <h3 class="feature-title">Mathematical Beauty</h3>
+        <p class="feature-desc">Explore the elegance of mathematics through visualizations, puzzles, and mind-bending
+          challenges.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">💡</div>
+        <h3 class="feature-title">Innovation Labs</h3>
+        <p class="feature-desc">Hands-on workshops integrating multiple disciplines to solve real-world problems
+          collaboratively.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🌊</div>
+        <h3 class="feature-title">Infinite Connections</h3>
+        <p class="feature-desc">Network with visionaries, collaborate across domains, and create lasting integrations
+          that matter.</p>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    // Celebration Effects
+    function createCelebration() {
+      const container = document.getElementById('celebration');
+
+      // Energy Pulses
+      for (let i = 0; i < 3; i++) {
+        setTimeout(() => {
+          const pulse = document.createElement('div');
+          pulse.style.cssText = `
+                        position: absolute;
+                        top: 50%;
+                        left: 50%;
+                        width: 100px;
+                        height: 100px;
+                        border: 3px solid rgba(102, 126, 234, 0.6);
+                        border-radius: 50%;
+                        transform: translate(-50%, -50%);
+                        animation: expandPulse 2s ease-out forwards;
+                    `;
+          container.appendChild(pulse);
+          setTimeout(() => pulse.remove(), 2000);
+        }, i * 250);
+      }
+
+      // Geometric Shards
+      for (let i = 0; i < 24; i++) {
+        setTimeout(() => {
+          const shard = document.createElement('div');
+          const angle = (Math.PI * 2 * i) / 24;
+          const distance = 200 + Math.random() * 100;
+          const tx = Math.cos(angle) * distance;
+          const ty = Math.sin(angle) * distance;
+
+          shard.style.cssText = `
+                        position: absolute;
+                        left: 50%;
+                        top: 50%;
+                        width: 4px;
+                        height: 40px;
+                        background: linear-gradient(to bottom, rgba(102, 126, 234, 0.8), transparent);
+                        clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+                        transform: translate(-50%, -50%);
+                        animation: shardFly 1.5s ease-out forwards;
+                        --tx: ${tx}px;
+                        --ty: ${ty}px;
+                        --rotate: ${Math.random() * 720 - 360}deg;
+                    `;
+          container.appendChild(shard);
+          setTimeout(() => shard.remove(), 1500);
+        }, 200);
+      }
+
+      // Light Beams
+      for (let i = 0; i < 12; i++) {
+        setTimeout(() => {
+          const beam = document.createElement('div');
+          beam.style.cssText = `
+                        position: absolute;
+                        left: ${Math.random() * 100}%;
+                        top: 50%;
+                        width: 2px;
+                        height: 0;
+                        background: linear-gradient(to bottom, rgba(102, 126, 234, 0.6), transparent);
+                        transform: rotate(${Math.random() * 360}deg);
+                        transform-origin: top;
+                        animation: beamGrow 1.2s ease-out forwards;
+                    `;
+          container.appendChild(beam);
+          setTimeout(() => beam.remove(), 1200);
+        }, i * 80);
+      }
+    }
+
+    // Add celebration keyframes
+    const style = document.createElement('style');
+    style.textContent = `
+            @keyframes expandPulse {
+                to { width: 1000px; height: 1000px; opacity: 0; border-width: 0; }
+            }
+            @keyframes shardFly {
+                to { 
+                    transform: translate(calc(-50% + var(--tx)), calc(-50% + var(--ty))) rotate(var(--rotate)); 
+                    opacity: 0; 
+                }
+            }
+            @keyframes beamGrow {
+                0% { height: 0; opacity: 0; }
+                30% { opacity: 1; }
+                100% { height: 150px; opacity: 0; }
+            }
+        `;
+    document.head.appendChild(style);
+
+    // Trigger celebration
+    setTimeout(() => {
+      createCelebration();
+    }, 2800);
+
+    // Hide loading screen
+    setTimeout(() => {
+      document.getElementById('loading').classList.add('fade-out');
+      setTimeout(() => {
+        document.getElementById('celebration').style.display = 'none';
+      }, 800);
+    }, 4000);
+
+    // Custom Cursor
+    const cursor = document.querySelector('.custom-cursor');
+    const trail = document.querySelector('.cursor-trail');
+    let cursorX = 0, cursorY = 0;
+    let trailX = 0, trailY = 0;
+
+    document.addEventListener('mousemove', (e) => {
+      cursorX = e.clientX;
+      cursorY = e.clientY;
+    });
+
+    function updateCursor() {
+      cursor.style.left = cursorX + 'px';
+      cursor.style.top = cursorY + 'px';
+
+      trailX += (cursorX - trailX) * 0.2;
+      trailY += (cursorY - trailY) * 0.2;
+      trail.style.left = trailX + 'px';
+      trail.style.top = trailY + 'px';
+
+      requestAnimationFrame(updateCursor);
+    }
+    updateCursor();
+
+    // Cursor hover effects
+    const interactiveElements = document.querySelectorAll('.btn, .event-card, .feature-card');
+    interactiveElements.forEach(el => {
+      el.addEventListener('mouseenter', () => cursor.classList.add('hover'));
+      el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
+    });
+
+    // Mouse parallax for title
+    const mainTitle = document.getElementById('mainTitle');
+    document.addEventListener('mousemove', (e) => {
+      const x = (e.clientX / window.innerWidth - 0.5) * 20;
+      const y = (e.clientY / window.innerHeight - 0.5) * 20;
+      if (mainTitle) {
+        mainTitle.style.transform = `translateX(${x}px) translateY(${y}px)`;
+      }
+    });
+
+    // 3D tilt effect for cards
+    const cards = document.querySelectorAll('.event-card, .feature-card');
+    cards.forEach(card => {
+      card.addEventListener('mousemove', (e) => {
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        const centerX = rect.width / 2;
+        const centerY = rect.height / 2;
+        const rotateX = (y - centerY) / 20;
+        const rotateY = (centerX - x) / 20;
+
+        card.style.transform = `translateY(-20px) scale(1.05) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+      });
+
+      card.addEventListener('mouseleave', () => {
+        card.style.transform = '';
+      });
+    });
+
+    // Animated background
+    const canvas = document.getElementById('bgCanvas');
+    const ctx = canvas.getContext('2d');
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    const particles = [];
+    const particleCount = 100;
+
+    for (let i = 0; i < particleCount; i++) {
+      particles.push({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        z: Math.random() * 1000,
+        vz: Math.random() * 2 + 1
+      });
+    }
+
+    function animateBackground() {
+      ctx.fillStyle = 'rgba(10, 10, 10, 0.1)';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      particles.forEach(p => {
+        p.z -= p.vz;
+        if (p.z <= 0) {
+          p.z = 1000;
+          p.x = Math.random() * canvas.width;
+          p.y = Math.random() * canvas.height;
+        }
+
+        const scale = 1000 / (1000 + p.z);
+        const x = (p.x - canvas.width / 2) * scale + canvas.width / 2;
+        const y = (p.y - canvas.height / 2) * scale + canvas.height / 2;
+        const size = scale * 2;
+
+        const gradient = ctx.createRadialGradient(x, y, 0, x, y, size * 2);
+        gradient.addColorStop(0, `rgba(102, 126, 234, ${scale * 0.8})`);
+        gradient.addColorStop(0.5, `rgba(118, 75, 162, ${scale * 0.4})`);
+        gradient.addColorStop(1, 'transparent');
+
+        ctx.fillStyle = gradient;
+        ctx.beginPath();
+        ctx.arc(x, y, size * 2, 0, Math.PI * 2);
+        ctx.fill();
+      });
+
+      requestAnimationFrame(animateBackground);
+    }
+
+    animateBackground();
+
+    // Resize handler
+    window.addEventListener('resize', () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    });
+  </script>
+</body>
+
+</html>
