@@ -504,6 +504,106 @@ body {
   line-height: 1.6;
 }
 
+/* TODO: might be some fucked up LLM shit but idk */
+
+/* --- New Page Overview Sections --- */
+.page-section {
+  position: relative;
+  padding: 80px 20px;
+  /* subtle blue/purple gradient border on top */
+  border-top: 1px solid var(--color-alpha-15);
+  background: var(--color-bg-darkest);
+  z-index: 10;
+}
+
+#gallery-overview {
+  border-bottom: 1px solid var(--color-alpha-15);
+}
+
+.section-content {
+  max-width: 900px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.page-section .section-title {
+  font-size: 3rem;
+  font-weight: 800;
+  /* Using the primary gradient for the title */
+  background: linear-gradient(
+    135deg,
+    var(--color-primary-blue),
+    var(--color-primary-purple)
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 10px;
+}
+
+.page-section .section-subtitle {
+  font-size: 1.2rem;
+  color: var(--color-text-secondary);
+  margin-bottom: 30px;
+  font-style: italic;
+}
+
+.section-body {
+  text-align: left;
+}
+
+.section-text {
+  font-size: 1.1rem;
+  line-height: 1.8;
+  color: var(--color-text-tertiary);
+  /* Highlight key terms */
+}
+
+/* Styling for the new main heading that replaces the section */
+.main-event-heading-container {
+  padding: 80px 20px 0; /* Keeps spacing consistent with other sections but removes bottom padding */
+  position: relative;
+}
+
+/* Overrides default section-title/subtitle styles for this specific large heading */
+.main-event-heading-title {
+  font-size: 4rem !important;
+  margin-bottom: 5px !important;
+}
+
+.main-event-heading-subtitle {
+  margin-bottom: 60px !important;
+}
+
+.event-page-link {
+  position: relative;
+  top: 2.5rem;
+}
+
+@media (max-width: 768px) {
+  .main-event-heading-container {
+    padding: 60px 15px 0;
+  }
+  .main-event-heading-title {
+    font-size: 2.5rem !important;
+  }
+}
+
+/* Mobile Adjustments for new sections */
+@media (max-width: 768px) {
+  .page-section {
+    padding: 60px 15px;
+  }
+  .page-section .section-title {
+    font-size: 2.2rem;
+  }
+  .page-section .section-subtitle {
+    font-size: 1rem;
+  }
+  .section-text {
+    font-size: 1rem;
+  }
+}
+
 @media (max-width: 768px) {
   body {
     cursor: auto;
