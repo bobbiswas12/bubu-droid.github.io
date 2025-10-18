@@ -4,63 +4,100 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Integration Fest 2025</title>
+  <title>Integration Fest 2026 - Indian Statistical Institute, Kolkata</title>
   <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
-  <!-- Custom Cursor -->
-  <div class="custom-cursor"></div>
-  <div class="cursor-trail"></div>
-
-   <!-- Navigation Bar -->
-  
-  <nav class="navbar">
-    <div class="nav-container">
-      <div class="nav-logo">Integration Fest</div>
-      <ul class="nav-menu">
-	<li class="nav-item"><a href="index.html" class="nav-link">Home</a></li>
-
-	<!-- Tech Dropdown -->
-	<li class="nav-item dropdown">
-          <a href="#" class="nav-link">Tech ▾</a>
-          <ul class="dropdown-menu">
-            <li><a href="sparq.html" class="dropdown-link">SPARQ</a></li>
-            <li><a href="mtrp.html" class="dropdown-link">MTRP</a></li>
-            <li><a href="integration-bee.html" class="dropdown-link">Integration Bee</a></li>
-          </ul>
-	</li>
-
-	<li class="nav-item"><a href="cultural.html" class="nav-link">Cultural</a></li>
-	<li class="nav-item"><a href="sports.html" class="nav-link">Sports</a></li>
-	<li class="nav-item"><a href="gallery.html" class="nav-link">Gallery</a></li>
-      </ul>
-    </div>
-  </nav>
   <!-- Loading Screen -->
-  <!-- <div class="loading" id="loading"> -->
-  <!--   <div class="integral-symbol">∫</div> -->
-  <!--   <div class="equation-text">(Innovation + Creativity + Technology) dx</div> -->
-  <!--   <div class="result-text">= INTEGRATION FEST</div> -->
+  <!-- <div class="loading-screen" id="loadingScreen"> -->
+  <!--   <div class="integration-symbol-load">∫</div> -->
+  <!--   <div class="integration-equation"> -->
+  <!--     <span style="color: #667eea;">(</span> -->
+  <!--     <span style="color: #764ba2;">Innovation</span> -->
+  <!--     <span style="color: #667eea;"> + </span> -->
+  <!--     <span style="color: #f093fb;">Creativity</span> -->
+  <!--     <span style="color: #667eea;"> + </span> -->
+  <!--     <span style="color: #4facfe;">Technology</span> -->
+  <!--     <span style="color: #667eea;">)</span> -->
+  <!--     <span style="color: #8892b0;"> dx</span> -->
+  <!--   </div> -->
+  <!--   <div class="loading-terms"> -->
+  <!--     <span style="animation-delay: 0.2s;">Integrating</span> -->
+  <!--     <span style="animation-delay: 0.4s;">all</span> -->
+  <!--     <span style="animation-delay: 0.6s;">possibilities</span> -->
+  <!--     <span style="animation-delay: 0.8s;">...</span> -->
+  <!--   </div> -->
+  <!--   <div class="result-text" id="resultText">= INTEGRATION FEST 2026</div> -->
   <!-- </div> -->
 
   <!-- Celebration Container -->
-  <div class="celebration" id="celebration"></div>
+  <div class="celebration-container" id="celebrationContainer"></div>
 
-  <!-- Background Canvas -->
-  <canvas class="bg-canvas" id="bgCanvas"></canvas>
+  <!-- Chaos Theory Canvas -->
+  <canvas id="chaosCanvas"></canvas>
+
+  <!-- 3D Canvas Background -->
+  <canvas id="canvas3d"></canvas>
+
+  <!-- Navigation Bar -->
+  <nav class="navbar">
+    <div class="nav-container">
+      <div class="nav-logo">Integration Fest</div>
+      <div class="nav-toggle" id="navToggle">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+      <ul class="nav-menu" id="navMenu">
+        <li class="nav-item">
+          <a href="#" class="nav-link">Home</a>
+        </li>
+
+        <li class="nav-item dropdown">
+          <a href="#tech" class="nav-link">Tech ▾</a>
+          <ul class="dropdown-menu">
+            <li><a href="#sparq" class="dropdown-link">SPARQ</a></li>
+            <li><a href="#mtrp" class="dropdown-link">MTRP</a></li>
+            <li><a href="#integration-bee" class="dropdown-link">Integration Bee</a></li>
+          </ul>
+        </li>
+
+        <li class="nav-item">
+          <a href="#cultural" class="nav-link">Cultural</a>
+        </li>
+
+        <li class="nav-item">
+          <a href="#sports" class="nav-link">Sports</a>
+        </li>
+
+        <li class="nav-item">
+          <a href="#gallery" class="nav-link">Gallery</a>
+        </li>
+
+        <!-- this is for dropdown -->
+        <li class="nav-item dropdown">
+          <a href="#about" class="nav-link">About ▾</a>
+          <ul class="dropdown-menu">
+            <li><a href="#venue" class="dropdown-link">Venue</a></li>
+            <li><a href="#sponsors" class="dropdown-link">Sponsors</a></li>
+            <li><a href="#contact" class="dropdown-link">Contact</a></li>
+          </ul>
+        </li>
+      </ul>
+
+    </div>
+  </nav>
 
   <!-- Hero Section -->
   <section class="hero">
-    <h1 class="main-title" id="mainTitle">INTEGRATION FEST</h1>
+    <h1 class="main-title">INTEGRATION FEST 2026</h1>
     <p class="subtitle">∫(Innovation + Creativity + Technology) dx</p>
-    <p class="tagline">Integration is a spectacular annual fest bringing together Tech, Cultural, and Sports events.
-      From MTRP and SPARQ to Alaap and Football, our twelve diverse competitions offer a dynamic platform for intellect,
-      creativity, and athleticism.
-    </p>
+    <p class="tagline">The annual techno-cultural sports fest of Indian Statistical Institute, Kolkata. Join thousands
+      of students from across India for decades of excellence in ideas, creativity, and talent.</p>
     <div class="cta-buttons">
-      <a class="btn btn-primary" href="#our-events-header">Explore Events</a>
-      <a class="btn btn-secondary" href="#">Register Now</a>
+      <a href="#our-events-header" class="btn btn-primary">Explore Events</a>
+      <a href="#register" class="btn btn-secondary">Register Now</a>
     </div>
   </section>
 
@@ -75,177 +112,225 @@
     </div>
   </div>
 
-  <!-- --- Tech Overview Section --- -->
-  <section id="tech-overview" class="page-section">
+  <!-- Tech Overview Section -->
+  <section id="tech" class="page-section">
     <div class="section-content">
       <h2 class="section-title">Technical Integration</h2>
-      <p class="section-subtitle">The arena for analytical minds and future innovators.</p>
-      <div class="section-body">
-        <p class="section-text">
-          The Tech chapter is the intellectual powerhouse of Integration, designed to challenge the limits of
-          statistical reasoning, data science, and pure mathematics. It hosts highly anticipated events like the
-          **Mathematics Talent Reward Programme (MTRP)**, a rigorous national-level math olympiad, and **SPARQ**, a data
-          analytics contest in collaboration with ISI Kolkata's AI and ML Centre. You can also test your calculus
-          mastery in the high-pressure environment of the **Integration Bee**. Each technical event is a direct conduit
-          to cutting-edge research, offering exposure to distinguished scholars and real-world problem-solving.
-        </p>
-      </div>
+      <p class="section-subtitle">The arena for analytical minds and future innovators</p>
+      <p class="section-text">
+        The Tech chapter hosts highly anticipated events like the Mathematics Talent Reward Programme (MTRP), a rigorous
+        national-level math olympiad, and SPARQ, a data analytics contest in collaboration with ISI Kolkatas CAIML. Test
+        your calculus mastery in the high-pressure environment of the Integration Bee.
+      </p>
       <div class="cta-buttons">
-        <a href="#" class="btn btn-primary event-page-link">View All Tech Events</a>
+        <a href="#tech-events" class="btn btn-primary">View All Tech Events</a>
       </div>
     </div>
   </section>
 
-  <!-- --- Cultural Overview Section --- -->
-  <section id="cultural-overview" class="page-section" style="background: var(--color-bg-darkest);">
+  <!-- Cultural Overview Section -->
+  <section id="cultural" class="page-section">
     <div class="section-content">
       <h2 class="section-title">Cultural Synthesis</h2>
-      <p class="section-subtitle">Where creativity meets performance and diplomacy.</p>
-      <div class="section-body">
-        <p class="section-text">
-          The Cultural chapter celebrates the vibrant and diverse heritage of the arts. It provides platforms for every
-          form of expression, from the soulful music competition **Alaap**, which showcases Indian classical and
-          semi-classical talent, to the engaging diplomacy simulation of **Model United Nations (MUN)**. Explore visual
-          narratives through the pan-India photography contest **Thru Da Lens** and witness the artistic depth of our
-          writers in **Between The Lines**. This chapter is dedicated to fostering connections, creativity, and public
-          discourse, transforming raw talent into polished performance.
-        </p>
-      </div>
+      <p class="section-subtitle">Where creativity meets performance and diplomacy</p>
+      <p class="section-text">
+        Celebrate vibrant arts with Alaap (music), Model United Nations (MUN), Thru Da Lens (photography), and Between
+        The Lines (writing). This chapter fosters connections, creativity, and public discourse.
+      </p>
       <div class="cta-buttons">
-        <a href="#" class="btn btn-primary event-page-link">View All Cultural Events</a>
+        <a href="#cultural-events" class="btn btn-primary">View All Cultural Events</a>
       </div>
-
     </div>
   </section>
 
-  <!-- --- Sports Overview Section --- -->
-  <section id="sports-overview" class="page-section">
+  <!-- Sports Overview Section -->
+  <section id="sports" class="page-section">
     <div class="section-content">
       <h2 class="section-title">Athletic Fusion</h2>
-      <p class="section-subtitle">The competitive spirit, demanding precision and strategy.</p>
-      <div class="section-body">
-        <p class="section-text">
-          The Sports chapter fuels the competitive energy of the fest with a full schedule of high-stakes tournaments.
-          From the intense, four-day inter-college **Football** and **Cricket** leagues, which draw over 300 athletes,
-          to the strategic mental battles of **Chess** (SBDS recognized) and **Bridge**. Whether it’s the fast-paced
-          action of **Table Tennis** or the deep strategy required for **Bridge**, these events emphasize team spirit,
-          discipline, and competitive excellence. This is where physical and mental dexterity converge.
-        </p>
-      </div>
+      <p class="section-subtitle">The competitive spirit demanding precision and strategy</p>
+      <p class="section-text">
+        High-stakes tournaments including Football, Cricket, Chess (SBDS recognized), Bridge, and Table Tennis. Over 300
+        athletes compete in four-day inter-college leagues emphasizing team spirit and excellence.
+      </p>
       <div class="cta-buttons">
-        <a href="#" class="btn btn-primary event-page-link">View All Athletic Events</a>
+        <a href="#sports-events" class="btn btn-primary">View All Athletic Events</a>
       </div>
     </div>
   </section>
 
-  <!-- --- Gallery Overview Section --- -->
-  <section id="gallery-overview" class="page-section" style="background: var(--color-bg-darkest);">
+  <!-- Gallery Overview Section -->
+  <section id="gallery-overview" class="page-section">
     <div class="section-content">
       <h2 class="section-title">The Gallery of Memories</h2>
       <p class="section-subtitle">A visual chronicle of the Integration journey.</p>
-      <div class="section-body">
-        <p class="section-text">
-          The Gallery serves as a comprehensive visual archive of the excitement, innovation, and talent that define
-          Integration. Browse stunning photography from the **Thru Da Lens** contest, relive the electrifying
-          performances from cultural nights, and view candid moments from every competition. This is where the
-          mathematical precision of the Tech events, the passion of the Cultural stages, and the raw energy of the
-          Sports fields are preserved for reflection and inspiration.
-        </p>
-      </div>
+      <p class="section-text">
+        The Gallery serves as a comprehensive visual archive of the excitement, innovation, and talent that define
+        Integration. Browse stunning photography from the Thru Da Lens contest, relive the electrifying
+        performances from cultural nights, and view candid moments from every competition. This is where the
+        mathematical precision of the Tech events, the passion of the Cultural stages, and the raw energy of the
+        Sports fields are preserved for reflection and inspiration.
+      </p>
       <div class="cta-buttons">
-        <a href="#" class="btn btn-primary event-page-link">Explore Gallery</a>
+        <a href="#" class="btn btn-primary">Explore Gallery</a>
       </div>
     </div>
   </section>
 
-  <!-- Event Cards -->
-  <div class="events-container">
-    <div class="event-card">
-      <span class="event-icon">🎭</span>
-      <h3 class="event-title">THEATRE</h3>
-      <p class="event-desc">Drama & Stage Performances</p>
-    </div>
-    <div class="event-card">
-      <span class="event-icon">🎬</span>
-      <h3 class="event-title">CINEMA</h3>
-      <p class="event-desc">Film Screenings & Reviews</p>
-    </div>
-    <div class="event-card">
-      <span class="event-icon">🎨</span>
-      <h3 class="event-title">ARTS</h3>
-      <p class="event-desc">Exhibitions & Galleries</p>
-    </div>
-    <div class="event-card">
-      <span class="event-icon">🎪</span>
-      <h3 class="event-title">EVENTS</h3>
-      <p class="event-desc">Workshops & Seminars</p>
-    </div>
-    <div class="event-card">
-      <span class="event-icon">🎯</span>
-      <h3 class="event-title">GAMING</h3>
-      <p class="event-desc">Tournaments & Competitions</p>
-    </div>
-    <div class="event-card">
-      <span class="event-icon">🎸</span>
-      <h3 class="event-title">MUSIC</h3>
-      <p class="event-desc">Concerts & Live Shows</p>
-    </div>
-    <div class="event-card">
-      <span class="event-icon">🎮</span>
-      <h3 class="event-title">E-SPORTS</h3>
-      <p class="event-desc">Digital Gaming Arena</p>
-    </div>
-    <div class="event-card">
-      <span class="event-icon">📸</span>
-      <h3 class="event-title">PHOTOGRAPHY</h3>
-      <p class="event-desc">Photo Exhibition & Contest</p>
+  <div class="main-event-heading-container">
+    <div class="section-content">
+      <h2 class="section-title main-event-heading-title" id="register-header">Registrations</h2>
+      <p class="section-subtitle main-event-heading-subtitle">Find contest rules and register for all 12 events here.
+      </p>
     </div>
   </div>
 
-  <!-- Features Section -->
-  <section class="features-section">
-    <h2 class="section-title">The Complete Experience</h2>
-    <p class="section-subtitle">∫ (All Events) → Limitless Possibilities</p>
-    <div class="features-grid">
-      <div class="feature-card">
-        <div class="feature-icon">🎨</div>
-        <h3 class="feature-title">Creative Integration</h3>
-        <p class="feature-desc">Merging art, design, and technology to create immersive experiences that transcend
-          traditional boundaries.</p>
+  <!-- Event Cards -->
+  <div class="events-container" id="events">
+    <div class="event-card">
+      <span class="event-icon">📊</span>
+      <h3 class="event-title">SPARQ</h3>
+      <p class="event-desc">Statistical & Probabilistic Analysis</p>
+    </div>
+    <div class="event-card">
+      <span class="event-icon">🧮</span>
+      <h3 class="event-title">MTRP</h3>
+      <p class="event-desc">Mathematics Talent Reward Programme</p>
+    </div>
+    <div class="event-card">
+      <span class="event-icon">∫</span>
+      <h3 class="event-title">Integration Bee</h3>
+      <p class="event-desc">Calculus Speed Competition</p>
+    </div>
+    <div class="event-card">
+      <span class="event-icon">🎵</span>
+      <h3 class="event-title">Alaap</h3>
+      <p class="event-desc">Indian Classical Music</p>
+    </div>
+    <div class="event-card">
+      <span class="event-icon">🎭</span>
+      <h3 class="event-title">Model UN</h3>
+      <p class="event-desc">Diplomacy Simulation</p>
+    </div>
+    <div class="event-card">
+      <span class="event-icon">📸</span>
+      <h3 class="event-title">Thru Da Lens</h3>
+      <p class="event-desc">Photography Contest</p>
+    </div>
+    <div class="event-card">
+      <span class="event-icon">⚽</span>
+      <h3 class="event-title">Football</h3>
+      <p class="event-desc">Inter-College Tournament</p>
+    </div>
+    <div class="event-card">
+      <span class="event-icon">♟️</span>
+      <h3 class="event-title">Chess</h3>
+      <p class="event-desc">SBDS Recognized Event</p>
+    </div>
+  </div>
+
+  <div class="main-event-heading-container">
+    <div class="section-content">
+      <h2 class="section-title main-event-heading-title" id="footer-header">The Integration Journey</h2>
+      <p class="section-subtitle main-event-heading-subtitle">Uniting thousands of competitors, volunteers, and
+        visionaries every year. </p>
+    </div>
+  </div>
+
+  <!-- Footer Section with Graph -->
+  <section class="footer-section">
+    <div class="graph-container">
+      <canvas id="graphCanvas"></canvas>
+    </div>
+
+    <div class="stats-grid">
+      <div class="stat-item">
+        <div class="stat-number">15+</div>
+        <div class="stat-label">Events</div>
       </div>
-      <div class="feature-card">
-        <div class="feature-icon">🚀</div>
-        <h3 class="feature-title">Technical Fusion</h3>
-        <p class="feature-desc">Advanced coding competitions, AI challenges, and robotics showcases converge in one
-          electrifying platform.</p>
+      <div class="stat-item">
+        <div class="stat-number">3300+</div>
+        <div class="stat-label">Footfall</div>
       </div>
-      <div class="feature-card">
-        <div class="feature-icon">🎭</div>
-        <h3 class="feature-title">Cultural Synthesis</h3>
-        <p class="feature-desc">A seamless blend of global cultures through performances, exhibitions, and interactive
-          installations.</p>
+      <div class="stat-item">
+        <div class="stat-number">200+</div>
+        <div class="stat-label">Volunteers</div>
       </div>
-      <div class="feature-card">
-        <div class="feature-icon">🧮</div>
-        <h3 class="feature-title">Mathematical Beauty</h3>
-        <p class="feature-desc">Explore the elegance of mathematics through visualizations, puzzles, and mind-bending
-          challenges.</p>
-      </div>
-      <div class="feature-card">
-        <div class="feature-icon">💡</div>
-        <h3 class="feature-title">Innovation Labs</h3>
-        <p class="feature-desc">Hands-on workshops integrating multiple disciplines to solve real-world problems
-          collaboratively.</p>
-      </div>
-      <div class="feature-card">
-        <div class="feature-icon">🌊</div>
-        <h3 class="feature-title">Infinite Connections</h3>
-        <p class="feature-desc">Network with visionaries, collaborate across domains, and create lasting integrations
-          that matter.</p>
+      <div class="stat-item">
+        <div class="stat-number">2026</div>
+        <div class="stat-label">Edition</div>
       </div>
     </div>
-  </section>
 
+    <!-- Tabbed Content -->
+    <div class="footer-tabs">
+      <div class="tab-buttons">
+        <button class="tab-button" data-tab="venue">Venue</button>
+        <button class="tab-button active" data-tab="sponsors">Sponsors</button>
+        <button class="tab-button" data-tab="contact">Contact Us</button>
+      </div>
+
+      <div class="tab-content" id="venue">
+        <h3>Indian Statistical Institute, Kolkata</h3>
+        <p>
+          The Indian Statistical Institute, Kolkata, a premier institute of national importance founded by
+          Prof. P. C. Mahalanobis, stands at the forefront of research and education in statistics, mathematics,
+          computer science, and data-driven disciplines.
+        </p>
+        <p>
+          <strong>Address:</strong><br>
+          203 Barrackpore Trunk Road<br>
+          Kolkata, West Bengal 700108<br>
+          India
+        </p>
+      </div>
+
+      <div class="tab-content" id="sponsors">
+        <h3>Our Sponsors</h3>
+        <p>
+          <!-- Enter stuff -->
+        </p>
+        <p>
+          <!-- enter stuff -->
+        </p>
+      </div>
+
+      <div class="tab-content" id="contact">
+        <h3>Get in Touch</h3>
+        <p>For sponsorship opportunities, event inquiries, or general questions, reach out to our team:</p>
+
+        <div class="contact-info">
+          <div class="contact-card">
+            <h4>Sponsorship</h4>
+            <p><strong>Email:</strong> sponsorship@integrationfest.in</p>
+          </div>
+          <div class="contact-card">
+            <h4>Arnab Palit</h4>
+            <p><strong>Phone:</strong> +91 9163674361</p>
+            <p><strong>Email:</strong> arnabpalit.integration@gmail.com</p>
+          </div>
+          <div class="contact-card">
+            <h4>Aryanil Kundu</h4>
+            <p><strong>Phone:</strong> +91 6289749608</p>
+            <p><strong>Email:</strong> aryanilkundu.integration@gmail.com</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <div class="footer-logo">INTEGRATION FEST 2026</div>
+      <div class="footer-links">
+        <a href="#tech" class="footer-link">Tech Events</a>
+        <a href="#cultural" class="footer-link">Cultural Events</a>
+        <a href="#sports" class="footer-link">Sports Events</a>
+        <a href="#gallery" class="footer-link">Gallery</a>
+        <a href="#" class="footer-link">Register</a>
+      </div>
+      <p class="copyright">
+        © 2026 Indian Statistical Institute, Kolkata. All rights reserved.
+      </p>
+    </div>
+  </section>
   <script src="script.js"></script>
 </body>
 
