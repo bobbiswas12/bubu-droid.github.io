@@ -400,3 +400,25 @@ tabButtons.forEach((button) => {
     document.getElementById(target).classList.add("active");
   });
 });
+
+// Smooth scroll + tab activation from dropdown links
+document.querySelectorAll(".dropdown-link").forEach((link) => {
+  link.addEventListener("click", (e) => {
+    e.preventDefault();
+    const targetId = link.getAttribute("href").replace("#", "");
+    const footerHeader = document.querySelector("#footer-tabs");
+    const targetButton = document.querySelector(
+      `.tab-button[data-tab="${targetId}"]`,
+    );
+
+    // Smooth scroll to footer
+    if (footerHeader) {
+      footerHeader.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+
+    // Trigger the existing tab-switch behavior
+    if (targetButton) {
+      setTimeout(() => targetButton.click(), 600); // small delay for scroll
+    }
+  });
+});
