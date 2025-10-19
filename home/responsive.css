@@ -107,16 +107,6 @@
     padding: 30px 20px;
   }
 
-  .features-grid {
-    grid-template-columns: 1fr;
-    gap: 20px;
-    padding: 0 15px;
-  }
-
-  .feature-card {
-    padding: 30px 25px;
-  }
-
   .cta-buttons {
     flex-direction: column;
     width: 100%;
@@ -187,10 +177,6 @@
 
   .event-icon {
     font-size: 2.5rem;
-  }
-
-  .feature-icon {
-    font-size: 2rem;
   }
 
   .stats-grid {

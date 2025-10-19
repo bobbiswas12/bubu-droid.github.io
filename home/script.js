@@ -1,15 +1,15 @@
 // Loading Screen
-setTimeout(() => {
-  document.getElementById("resultText").classList.add("show");
-  setTimeout(() => startCelebration(), 800);
-}, 2500);
-
-setTimeout(() => {
-  document.getElementById("loadingScreen").classList.add("hidden");
-  setTimeout(() => {
-    document.getElementById("celebrationContainer").style.display = "none";
-  }, 1000);
-}, 4500);
+// setTimeout(() => {
+//   document.getElementById("resultText").classList.add("show");
+//   setTimeout(() => startCelebration(), 800);
+// }, 2500);
+//
+// setTimeout(() => {
+//   document.getElementById("loadingScreen").classList.add("hidden");
+//   setTimeout(() => {
+//     document.getElementById("celebrationContainer").style.display = "none";
+//   }, 1000);
+// }, 4500);
 
 // Celebration Effects
 function startCelebration() {
@@ -370,19 +370,69 @@ window.addEventListener("resize", () => {
   graphCanvas.height = graphCanvas.offsetHeight;
 });
 
-// Smooth scroll for anchor links
-document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+// Smooth scroll with navbar offset that supports hrefs like "/home/index.html#tech" and "#tech"
+// Also triggers tab activation for dropdown links (if applicable).
+
+document.querySelectorAll('a[href*="#"]').forEach((anchor) => {
   anchor.addEventListener("click", function (e) {
-    e.preventDefault();
-    const target = document.querySelector(this.getAttribute("href"));
-    if (target) {
-      target.scrollIntoView({
+    try {
+      // Resolve absolute URL of the link relative to current origin
+      const linkUrl = new URL(this.href, location.href);
+
+      // Normalize pathnames to ignore trailing slash differences
+      const normalize = (p) => (p || "/").replace(/\/$/, "");
+
+      // Only intercept if the link targets the same page (path + search)
+      const samePath =
+        normalize(linkUrl.pathname) === normalize(location.pathname);
+      const sameSearch = linkUrl.search === location.search;
+      const hasHash = !!linkUrl.hash;
+
+      if (!hasHash || !samePath || !sameSearch) {
+        // Let the browser handle navigation to other pages or links without hash
+        return;
+      }
+
+      // At this point we are linking to an id on the same page
+      const hash = linkUrl.hash; // includes the leading '#'
+      const target = document.querySelector(hash);
+      if (!target) return;
+
+      e.preventDefault();
+
+      // Compute offset (navbar height + 20px buffer)
+      const navbar = document.querySelector(".navbar");
+      const navHeight = navbar ? navbar.offsetHeight : 0;
+      const offset = navHeight + 20;
+
+      // Calculate final scroll position and perform smooth scroll
+      const elementPosition =
+        target.getBoundingClientRect().top + window.scrollY;
+      const scrollTo = Math.max(0, elementPosition - offset);
+
+      window.scrollTo({
+        top: scrollTo,
         behavior: "smooth",
-        block: "start",
       });
+
+      // If this link should also trigger a footer tab activation (dropdown-link),
+      // click the matching tab-button after a small delay so your existing tab handler runs.
+      if (this.classList.contains("dropdown-link")) {
+        const targetTabButton = document.querySelector(
+          `.tab-button[data-tab="${hash.replace("#", "")}"]`,
+        );
+        if (targetTabButton) {
+          // Delay should be at least the visual scroll time; adjust if needed
+          setTimeout(() => targetTabButton.click(), 600);
+        }
+      }
+    } catch (err) {
+      // If URL parsing fails for any reason, do nothing and allow default behavior
+      return;
     }
   });
 });
+
 // Tab switching functionality for footer buttons
 const tabButtons = document.querySelectorAll(".tab-button");
 const tabContents = document.querySelectorAll(".tab-content");
@@ -402,23 +452,41 @@ tabButtons.forEach((button) => {
 });
 
 // Smooth scroll + tab activation from dropdown links
-document.querySelectorAll(".dropdown-link").forEach((link) => {
+document.querySelectorAll(".about-dropdown").forEach((link) => {
   link.addEventListener("click", (e) => {
+    // Only intercept if the link points to the current page
+    const linkUrl = new URL(link.href, location.href);
+    const normalize = (p) => (p || "/").replace(/\/$/, "");
+    const samePage =
+      normalize(linkUrl.pathname) === normalize(location.pathname) &&
+      linkUrl.search === location.search &&
+      linkUrl.hash;
+
+    if (!samePage) return; // let browser handle other pages normally
+
     e.preventDefault();
-    const targetId = link.getAttribute("href").replace("#", "");
-    const footerHeader = document.querySelector("#footer-tabs");
+    const targetId = linkUrl.hash.replace("#", "");
+
+    const footerHeader = document.querySelector("#footer-header"); // adjust to your actual footer container
     const targetButton = document.querySelector(
       `.tab-button[data-tab="${targetId}"]`,
     );
 
-    // Smooth scroll to footer
+    // Smooth scroll with navbar offset + 20px buffer
+    const navbar = document.querySelector(".navbar");
+    const navHeight = navbar ? navbar.offsetHeight : 0;
+    const offset = navHeight + 20;
+
     if (footerHeader) {
-      footerHeader.scrollIntoView({ behavior: "smooth", block: "start" });
+      const elementPosition =
+        footerHeader.getBoundingClientRect().top + window.scrollY;
+      const scrollTo = Math.max(0, elementPosition - offset);
+      window.scrollTo({ top: scrollTo, behavior: "smooth" });
     }
 
-    // Trigger the existing tab-switch behavior
+    // Activate the correct tab after scroll
     if (targetButton) {
-      setTimeout(() => targetButton.click(), 600); // small delay for scroll
+      setTimeout(() => targetButton.click(), 600);
     }
   });
 });
