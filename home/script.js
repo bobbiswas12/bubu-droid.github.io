@@ -467,7 +467,7 @@ document.querySelectorAll(".about-dropdown").forEach((link) => {
     e.preventDefault();
     const targetId = linkUrl.hash.replace("#", "");
 
-    const footerHeader = document.querySelector("#footer-header"); // adjust to your actual footer container
+    const footerHeader = document.querySelector("#footer-tabs"); // adjust to your actual footer container
     const targetButton = document.querySelector(
       `.tab-button[data-tab="${targetId}"]`,
     );
