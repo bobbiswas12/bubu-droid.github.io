@@ -537,7 +537,7 @@ body {
 
 .btn-card {
   display: inline-block;
-  padding: 10px 25px; /* Smaller than main CTA buttons */
+  padding: 10px 30px; /* Smaller than main CTA buttons */
   font-size: 0.9rem;
   font-weight: 600;
   box-shadow: 0 5px 15px var(--color-alpha-30);

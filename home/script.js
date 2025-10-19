@@ -490,3 +490,17 @@ document.querySelectorAll(".about-dropdown").forEach((link) => {
     }
   });
 });
+
+function setNavMenuTop() {
+  const navbar = document.querySelector(".navbar");
+  const navMenu = document.querySelector(".nav-menu");
+
+  if (navbar && navMenu) {
+    const navHeight = navbar.offsetHeight;
+    navMenu.style.top = `${navHeight}px`;
+  }
+}
+
+// Run on load and resize
+window.addEventListener("DOMContentLoaded", setNavMenuTop);
+window.addEventListener("resize", setNavMenuTop);
