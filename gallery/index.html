@@ -3,49 +3,54 @@
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gallery</title>
+    <title>Gallery - Integration Fest 2026</title>
     <link rel="stylesheet" href="style.css">
   </head>
-  
   <body>
-    <!-- Navigation Bar -->
+    <canvas id="canvas3d"></canvas>
+
+    <div class="theme-toggle" id="themeToggle">
+      <div class="toggle-icon">🌙</div>
+    </div>
+
     <nav class="navbar">
       <div class="nav-container">
         <div class="nav-logo">Integration Fest</div>
+        
         <div class="nav-toggle" id="navToggle">
           <span></span>
           <span></span>
           <span></span>
         </div>
+        
         <ul class="nav-menu" id="navMenu">
           <li class="nav-item">
-            <a href="#" class="nav-link">Home</a>
+            <a href="/" class="nav-link">Home</a>
           </li>
-
+          
           <li class="nav-item dropdown">
-            <a href="#tech" class="nav-link">Tech ▾</a>
+            <a href="#tech" class="nav-link dropdown-toggle">Tech ▾</a>
             <ul class="dropdown-menu">
-              <li><a href="#sparq" class="dropdown-link">SPARQ</a></li>
-              <li><a href="#mtrp" class="dropdown-link">MTRP</a></li>
-              <li><a href="#integration-bee" class="dropdown-link">Integration Bee</a></li>
+              <li><a href="/sparq/" class="dropdown-link">SPARQ</a></li>
+              <li><a href="/mtrp/" class="dropdown-link">MTRP</a></li>
+              <li><a href="/intbee/" class="dropdown-link">Integration Bee</a></li>
             </ul>
           </li>
-
+          
           <li class="nav-item">
-            <a href="#cultural" class="nav-link">Cultural</a>
+            <a href="/cultural/" class="nav-link">Cultural</a>
           </li>
-
+          
           <li class="nav-item">
-            <a href="#sports" class="nav-link">Sports</a>
+            <a href="/sports/" class="nav-link">Sports</a>
           </li>
-
+          
           <li class="nav-item">
-            <a href="#gallery" class="nav-link">Gallery</a>
+            <a href="/gallery/" class="nav-link">Gallery</a>
           </li>
-
-          <!-- this is for dropdown -->
+          
           <li class="nav-item dropdown">
-            <a href="#about" class="nav-link">About ▾</a>
+            <a href="#footer" class="nav-link dropdown-toggle">About ▾</a>
             <ul class="dropdown-menu">
               <li><a href="#venue" class="dropdown-link">Venue</a></li>
               <li><a href="#sponsors" class="dropdown-link">Sponsors</a></li>
@@ -53,95 +58,241 @@
             </ul>
           </li>
         </ul>
-
       </div>
     </nav>
 
-    <!-- Hero Section -->
     <section class="hero">
-      <h1 class="main-title">Events Gallery</h1>
-      <p class="subtitle">Explore our main event from: Tech, Cultural, and Sports.</p>
-    </section>
-
-    <!-- Gallery Section -->
-    <section class="gallery-section page-section" id="gallery-overview">
-      <div class="section-content">
-        <h2 class="section-title">Captured Highlights</h2>
-        <p class="section-subtitle">write some stuff here, a quote maybe</p>
-
-        <!-- Main Event Sections -->
-        <div class="events-container">
-          <div class="event-card" data-target="tech-gallery">
-            <div class="event-icon">💻</div>
-            <h3 class="event-title">Tech</h3>
-            <p class="event-desc">Click to view tech events.</p>
-          </div>
-
-          <div class="event-card" data-target="cultural-gallery">
-            <div class="event-icon">🎭</div>
-            <h3 class="event-title">Cultural</h3>
-            <p class="event-desc">Click to view cultural events.</p>
-          </div>
-
-          <div class="event-card" data-target="sports-gallery">
-            <div class="event-icon">🏆</div>
-            <h3 class="event-title">Sports</h3>
-            <p class="event-desc">Click to view sports events.</p>
-          </div>
-        </div>
-
-        <!-- Sub-galleries -->
-        <div class="sub-gallery" id="tech-gallery">
-          <div class="gallery-item"><img src="images/tech1.jpg" alt="Tech Event 1"></div>
-          <div class="gallery-item"><img src="images/tech2.jpg" alt="Tech Event 2"></div>
-          <div class="gallery-item"><img src="images/tech3.jpg" alt="Tech Event 3"></div>
-          <div class="gallery-item"><img src="images/tech4.jpg" alt="Tech Event 4"></div>
-        </div>
-
-        <div class="sub-gallery" id="cultural-gallery">
-          <div class="gallery-item"><img src="images/cultural1.jpg" alt="Cultural Event 1"></div>
-          <div class="gallery-item"><img src="images/cultural2.jpg" alt="Cultural Event 2"></div>
-          <div class="gallery-item"><img src="images/cultural3.jpg" alt="Cultural Event 3"></div>
-          <div class="gallery-item"><img src="images/cultural4.jpg" alt="Cultural Event 4"></div>
-        </div>
-
-        <div class="sub-gallery" id="sports-gallery">
-          <div class="gallery-item"><img src="images/sports1.jpg" alt="Sports Event 1"></div>
-          <div class="gallery-item"><img src="images/sports2.jpg" alt="Sports Event 2"></div>
-          <div class="gallery-item"><img src="images/sports3.jpg" alt="Sports Event 3"></div>
-          <div class="gallery-item"><img src="images/sports4.jpg" alt="Sports Event 4"></div>
-        </div>
-
+      <div>
+        <h1>📸 Events Gallery</h1>
+        <p>Capturing moments of brilliance and creativity</p>
       </div>
     </section>
 
-    <!-- Optional Footer -->
-    <section class="footer-section">
-      <div class="footer-bottom">
-        <div class="footer-logo">INTEGRATION FEST 2026</div>
-        <div class="footer-links">
-          <a href="#tech" class="footer-link">Tech Events</a>
-          <a href="#cultural" class="footer-link">Cultural Events</a>
-          <a href="#sports" class="footer-link">Sports Events</a>
-          <a href="#gallery" class="footer-link">Gallery</a>
-          <a href="#" class="footer-link">Register</a>
+    <section class="gallery-section">
+      <div class="section-header">
+        <h2>Captured Highlights</h2>
+        <p>Relive the moments from Integration Fest</p>
+      </div>
+
+      <div class="controls">
+        <button class="tab-btn active" data-tab="tech">💻 Tech</button>
+        <button class="tab-btn" data-tab="cultural">🎭 Cultural</button>
+        <button class="tab-btn" data-tab="sports">🏆 Sports</button>
+      </div>
+
+      <div class="gallery-container active" id="tech-gallery">
+        <div class="gallery-grid">
+          <div class="gallery-item" data-caption="SPARQ 2025" data-date="March 2025">
+            <img src="https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=800&h=600&fit=crop" alt="Tech 1">
+            <div class="item-overlay">
+              <h3>SPARQ 2025</h3>
+              <p>March 2025</p>
+            </div>
+            <div class="zoom-icon">🔍</div>
+          </div>
+          <div class="gallery-item" data-caption="Integration Bee" data-date="January 2025">
+            <img src="https://images.unsplash.com/photo-1635070041078-e363dbe005cb?w=800&h=500&fit=crop" alt="Tech 2">
+            <div class="item-overlay">
+              <h3>Integration Bee</h3>
+              <p>January 2025</p>
+            </div>
+            <div class="zoom-icon">🔍</div>
+          </div>
+          <div class="gallery-item" data-caption="MTRP Workshop" data-date="March 2025">
+            <img src="https://images.unsplash.com/photo-1509062522246-3755977927d7?w=800&h=700&fit=crop" alt="Tech 3">
+            <div class="item-overlay">
+              <h3>MTRP Workshop</h3>
+              <p>March 2025</p>
+            </div>
+            <div class="zoom-icon">🔍</div>
+          </div>
+          <div class="gallery-item" data-caption="Hackathon Finals" data-date="February 2025">
+            <img src="https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=800&h=550&fit=crop" alt="Tech 4">
+            <div class="item-overlay">
+              <h3>Hackathon Finals</h3>
+              <p>February 2025</p>
+            </div>
+            <div class="zoom-icon">🔍</div>
+          </div>
+          <div class="gallery-item" data-caption="Data Science Workshop" data-date="January 2025">
+            <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&h=600&fit=crop" alt="Tech 5">
+            <div class="item-overlay">
+              <h3>Data Science Workshop</h3>
+              <p>January 2025</p>
+            </div>
+            <div class="zoom-icon">🔍</div>
+          </div>
+          <div class="gallery-item" data-caption="Tech Talk Series" data-date="February 2025">
+            <img src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=800&h=650&fit=crop" alt="Tech 6">
+            <div class="item-overlay">
+              <h3>Tech Talk Series</h3>
+              <p>February 2025</p>
+            </div>
+            <div class="zoom-icon">🔍</div>
+          </div>
+          <div class="gallery-item" data-caption="AI/ML Competition" data-date="March 2025">
+            <img src="https://images.unsplash.com/photo-1677442136019-21780ecad995?w=800&h=500&fit=crop" alt="Tech 7">
+            <div class="item-overlay">
+              <h3>AI/ML Competition</h3>
+              <p>March 2025</p>
+            </div>
+            <div class="zoom-icon">🔍</div>
+          </div>
+          <div class="gallery-item" data-caption="Robotics Showcase" data-date="February 2025">
+            <img src="https://images.unsplash.com/photo-1485827404703-89b55fcc595e?w=800&h=700&fit=crop" alt="Tech 8">
+            <div class="item-overlay">
+              <h3>Robotics Showcase</h3>
+              <p>February 2025</p>
+            </div>
+            <div class="zoom-icon">🔍</div>
+          </div>
+          <div class="gallery-item" data-caption="Coding Marathon" data-date="January 2025">
+            <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=800&h=550&fit=crop" alt="Tech 9">
+            <div class="item-overlay">
+              <h3>Coding Marathon</h3>
+              <p>January 2025</p>
+            </div>
+            <div class="zoom-icon">🔍</div>
+          </div>
         </div>
-        <p class="copyright">
-          © 2026 Indian Statistical Institute, Kolkata. All rights reserved.
-        </p>
+      </div>
+
+      <div class="gallery-container" id="cultural-gallery">
+        <div class="gallery-grid">
+          <div class="gallery-item" data-caption="Classical Dance" data-date="January 2025">
+            <img src="https://images.unsplash.com/photo-1504609813442-a8924e83f76e?w=800&h=600&fit=crop" alt="Cultural 1">
+            <div class="item-overlay">
+              <h3>Dance Performance</h3>
+              <p>January 2025</p>
+            </div>
+            <div class="zoom-icon">🔍</div>
+          </div>
+          <div class="gallery-item" data-caption="Music Night" data-date="February 2025">
+            <img src="https://images.unsplash.com/photo-1511735111819-9a3f7709049c?w=800&h=500&fit=crop" alt="Cultural 2">
+            <div class="item-overlay">
+              <h3>Music Night</h3>
+              <p>February 2025</p>
+            </div>
+            <div class="zoom-icon">🔍</div>
+          </div>
+          <div class="gallery-item" data-caption="Theatre" data-date="March 2025">
+            <img src="https://images.unsplash.com/photo-1503095396549-807759245b35?w=800&h=700&fit=crop" alt="Cultural 3">
+            <div class="item-overlay">
+              <h3>Drama</h3>
+              <p>March 2025</p>
+            </div>
+            <div class="zoom-icon">🔍</div>
+          </div>
+          <div class="gallery-item" data-caption="Art Exhibition" data-date="January 2025">
+            <img src="https://images.unsplash.com/photo-1460661419201-fd4cecdf8a8b?w=800&h=550&fit=crop" alt="Cultural 4">
+            <div class="item-overlay">
+              <h3>Art Show</h3>
+              <p>January 2025</p>
+            </div>
+            <div class="zoom-icon">🔍</div>
+          </div>
+          <div class="gallery-item" data-caption="Fashion Show" data-date="February 2025">
+            <img src="https://images.unsplash.com/photo-1558769132-cb1aea1f0ce5?w=800&h=650&fit=crop" alt="Cultural 5">
+            <div class="item-overlay">
+              <h3>Fashion</h3>
+              <p>February 2025</p>
+            </div>
+            <div class="zoom-icon">🔍</div>
+          </div>
+          <div class="gallery-item" data-caption="Cultural Night" data-date="March 2025">
+            <img src="https://images.unsplash.com/photo-1514306191717-452ec28c7814?w=800&h=600&fit=crop" alt="Cultural 6">
+            <div class="item-overlay">
+              <h3>Celebrations</h3>
+              <p>March 2025</p>
+            </div>
+            <div class="zoom-icon">🔍</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="gallery-container" id="sports-gallery">
+        <div class="gallery-grid">
+          <div class="gallery-item" data-caption="Cricket Finals" data-date="February 2025">
+            <img src="https://images.unsplash.com/photo-1540747913346-19e32dc3e97e?w=800&h=600&fit=crop" alt="Sports 1">
+            <div class="item-overlay">
+              <h3>Cricket</h3>
+              <p>February 2025</p>
+            </div>
+            <div class="zoom-icon">🔍</div>
+          </div>
+          <div class="gallery-item" data-caption="Football Match" data-date="January 2025">
+            <img src="https://images.unsplash.com/photo-1579952363873-27f3bade9f55?w=800&h=500&fit=crop" alt="Sports 2">
+            <div class="item-overlay">
+              <h3>Football</h3>
+              <p>January 2025</p>
+            </div>
+            <div class="zoom-icon">🔍</div>
+          </div>
+          <div class="gallery-item" data-caption="Chess" data-date="March 2025">
+            <img src="https://images.unsplash.com/photo-1529699211952-734e80c4d42b?w=800&h=700&fit=crop" alt="Sports 3">
+            <div class="item-overlay">
+              <h3>Chess</h3>
+              <p>March 2025</p>
+            </div>
+            <div class="zoom-icon">🔍</div>
+          </div>
+          <div class="gallery-item" data-caption="Table Tennis" data-date="February 2025">
+            <img src="https://images.unsplash.com/photo-1534158914592-062992fbe900?w=800&h=550&fit=crop" alt="Sports 4">
+            <div class="item-overlay">
+              <h3>Table Tennis</h3>
+              <p>February 2025</p>
+            </div>
+            <div class="zoom-icon">🔍</div>
+          </div>
+          <div class="gallery-item" data-caption="Athletics" data-date="March 2025">
+            <img src="https://images.unsplash.com/photo-1552674605-db6ffd4facb5?w=800&h=650&fit=crop" alt="Sports 5">
+            <div class="item-overlay">
+              <h3>Athletics</h3>
+              <p>March 2025</p>
+            </div>
+            <div class="zoom-icon">🔍</div>
+          </div>
+          <div class="gallery-item" data-caption="Awards" data-date="March 2025">
+            <img src="https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=800&h=600&fit=crop" alt="Sports 6">
+            <div class="item-overlay">
+              <h3>Awards</h3>
+              <p>March 2025</p>
+            </div>
+            <div class="zoom-icon">🔍</div>
+          </div>
+        </div>
       </div>
     </section>
 
-    <!-- i have no idea what this is for -->
-    <!--<script>
-      const navToggle = document.getElementById('navToggle');
-      const navMenu = document.getElementById('navMenu');
+    <div class="lightbox" id="lightbox">
+      <div class="lightbox-controls">
+        <button class="lb-btn" id="zoomIn">+</button>
+        <button class="lb-btn" id="zoomOut">−</button>
+        <button class="lb-btn" id="resetZoom">↺</button>
+        <button class="lb-close" id="closeLightbox">×</button>
+      </div>
+      
+      <div class="lightbox-content">
+        <img id="lightboxImg" src="" alt="">
+        <div class="lightbox-info">
+          <h3 id="lightboxCaption"></h3>
+          <p id="lightboxDate"></p>
+          <p id="lightboxCounter"></p>
+        </div>
+      </div>
+      
+      <button class="lb-nav lb-prev" id="prevBtn">‹</button>
+      <button class="lb-nav lb-next" id="nextBtn">›</button>
+    </div>
 
-      navToggle.addEventListener('click', () => {
-        navToggle.classList.toggle('active');
-        navMenu.classList.toggle('active');
-      });
-    </script> -->
-    <script src="gallery.js"></script>
+    <footer>
+      <div class="footer-logo">Integration Fest 2026</div>
+      <p>Indian Statistical Institute, Kolkata</p>
+      <p style="margin-top: 30px; padding-top: 30px; border-top: 1px solid var(--border-color);">
+        © 2026 ISI Kolkata. All Rights Reserved.
+      </p>
+    </footer>
+
+    <script src="script.js"></script>
   </body>
 </html>
