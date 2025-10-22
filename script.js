@@ -171,7 +171,7 @@ attractor2.hue = 260;
 const attractors = [attractor1, attractor2];
 
 function animateChaos() {
-  chaosCtx.fillStyle = "rgba(0, 0, 0, 0.02)";
+  chaosCtx.fillStyle = "rgba(0, 0, 0, 0.001)";
   chaosCtx.fillRect(0, 0, chaosCanvas.width, chaosCanvas.height);
 
   attractors.forEach((attractor) => {
@@ -225,7 +225,7 @@ const minimalParticles = Array.from(
 );
 
 function animateMinimal() {
-  ctx.fillStyle = "rgba(0, 0, 0, 0.05)";
+  ctx.fillStyle = "rgba(0, 0, 0, 0.001)";
   ctx.fillRect(0, 0, canvas.width, canvas.height);
 
   minimalParticles.forEach((p) => {
@@ -332,33 +332,84 @@ function drawGraph() {
 
 drawGraph();
 
-// Mobile Navigation Toggle
+// Navigation with improved dropdown handling
 const navToggle = document.getElementById("navToggle");
 const navMenu = document.getElementById("navMenu");
+const dropdowns = document.querySelectorAll(".dropdown");
 
-if (navToggle) {
-  navToggle.addEventListener("click", () => {
+if (navToggle && navMenu) {
+  navToggle.addEventListener("click", (e) => {
+    e.stopPropagation();
     navToggle.classList.toggle("active");
     navMenu.classList.toggle("active");
   });
+}
 
-  // Close menu when clicking outside
-  document.addEventListener("click", (e) => {
-    if (!navToggle.contains(e.target) && !navMenu.contains(e.target)) {
-      navToggle.classList.remove("active");
-      navMenu.classList.remove("active");
+// Dropdown Toggle for Mobile
+dropdowns.forEach((dropdown) => {
+  const dropdownToggle = dropdown.querySelector(".dropdown-toggle");
+
+  if (dropdownToggle) {
+    dropdownToggle.addEventListener("click", function (e) {
+      if (window.innerWidth <= 768) {
+        e.preventDefault();
+        e.stopPropagation();
+
+        const isThisActive = dropdown.classList.contains("active");
+        dropdowns.forEach((d) => d.classList.remove("active"));
+
+        if (!isThisActive) {
+          dropdown.classList.add("active");
+        }
+      }
+    });
+  }
+});
+
+// Smooth Scrolling
+document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+  anchor.addEventListener("click", function (e) {
+    const href = this.getAttribute("href");
+
+    if (href === "#") return;
+
+    if (
+      this.classList.contains("dropdown-toggle") &&
+      window.innerWidth <= 768
+    ) {
+      return;
+    }
+
+    e.preventDefault();
+    const target = document.querySelector(href);
+    if (target) {
+      target.scrollIntoView({ behavior: "smooth", block: "start" });
+      if (navMenu) navMenu.classList.remove("active");
+      if (navToggle) navToggle.classList.remove("active");
+      dropdowns.forEach((dropdown) => dropdown.classList.remove("active"));
     }
   });
+});
 
-  // Close menu when clicking a link
-  const navLinks = document.querySelectorAll(".nav-link, .dropdown-link");
-  navLinks.forEach((link) => {
-    link.addEventListener("click", () => {
-      navToggle.classList.remove("active");
+// Close menu when clicking outside
+document.addEventListener("click", (e) => {
+  if (navMenu && navToggle) {
+    if (!navMenu.contains(e.target) && !navToggle.contains(e.target)) {
       navMenu.classList.remove("active");
-    });
-  });
-}
+      navToggle.classList.remove("active");
+      dropdowns.forEach((dropdown) => dropdown.classList.remove("active"));
+    }
+  }
+});
+
+// Handle dropdown on window resize
+window.addEventListener("resize", () => {
+  if (window.innerWidth > 768) {
+    if (navMenu) navMenu.classList.remove("active");
+    if (navToggle) navToggle.classList.remove("active");
+    dropdowns.forEach((dropdown) => dropdown.classList.remove("active"));
+  }
+});
 
 // Resize handler
 window.addEventListener("resize", () => {
@@ -372,7 +423,6 @@ window.addEventListener("resize", () => {
 
 // Smooth scroll with navbar offset that supports hrefs like "/home/index.html#tech" and "#tech"
 // Also triggers tab activation for dropdown links (if applicable).
-
 document.querySelectorAll('a[href*="#"]').forEach((anchor) => {
   anchor.addEventListener("click", function (e) {
     try {
@@ -504,3 +554,19 @@ function setNavMenuTop() {
 // Run on load and resize
 window.addEventListener("DOMContentLoaded", setNavMenuTop);
 window.addEventListener("resize", setNavMenuTop);
+
+// Theme Toggle
+const themeToggle = document.getElementById("themeToggle");
+const toggleIcon = themeToggle.querySelector(".toggle-icon");
+
+themeToggle.addEventListener("click", () => {
+  document.body.classList.toggle("light-mode");
+
+  if (document.body.classList.contains("light-mode")) {
+    toggleIcon.textContent = "☀️";
+    showNotification("Light mode activated! ☀️");
+  } else {
+    toggleIcon.textContent = "🌙";
+    showNotification("Dark mode activated! 🌙");
+  }
+});

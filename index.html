@@ -6,10 +6,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Integration Fest 2026 - Indian Statistical Institute, Kolkata</title>
   <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="nav.css">
   <link rel="stylesheet" href="responsive.css">
 </head>
 
-<body>
+<body class="light-mode">
   <!-- Loading Screen -->
   <!-- <div class="loading-screen" id="loadingScreen"> -->
   <!--   <div class="integration-symbol-load">∫</div> -->
@@ -41,48 +42,56 @@
   <!-- 3D Canvas Background -->
   <canvas id="canvas3d"></canvas>
 
+  <!-- Theme Toggle -->
+  <div class="theme-toggle" id="themeToggle">
+    <div class="toggle-icon">🌙</div>
+  </div>
+
+
+
   <!-- Navigation Bar -->
   <nav class="navbar">
     <div class="nav-container">
       <div class="nav-logo">Integration Fest</div>
+
       <div class="nav-toggle" id="navToggle">
         <span></span>
         <span></span>
         <span></span>
       </div>
+
       <ul class="nav-menu" id="navMenu">
         <li class="nav-item">
-          <a href="/home/index.html" class="nav-link">Home</a>
+          <a href="/" class="nav-link">Home</a>
         </li>
 
         <li class="nav-item dropdown">
-          <a href="/home/index.html#tech" class="nav-link">Tech ▾</a>
+          <a href="/#tech" class="nav-link dropdown-toggle">Tech ▾</a>
           <ul class="dropdown-menu">
-            <li><a href="/sparq/index.html" class="dropdown-link">SPARQ</a></li>
-            <li><a href="/mtrp/index.html" class="dropdown-link">MTRP</a></li>
-            <li><a href="/intbee/index.html" class="dropdown-link">Integration Bee</a></li>
+            <li><a href="/sparq/" class="dropdown-link">SPARQ</a></li>
+            <li><a href="/mtrp/" class="dropdown-link">MTRP</a></li>
+            <li><a href="/intbee/" class="dropdown-link">Integration Bee</a></li>
           </ul>
         </li>
 
         <li class="nav-item">
-          <a href="/cultural/index.html" class="nav-link">Cultural</a>
+          <a href="/cultural/" class="nav-link">Cultural</a>
         </li>
 
         <li class="nav-item">
-          <a href="/sports/index.html" class="nav-link">Sports</a>
+          <a href="/sports/" class="nav-link">Sports</a>
         </li>
 
         <li class="nav-item">
-          <a href="/gallery/index.html" class="nav-link">Gallery</a>
+          <a href="/gallery/" class="nav-link">Gallery</a>
         </li>
 
-        <!-- Dropdown Menu -->
         <li class="nav-item dropdown">
-          <a href="/home/index.html#footer-header" class="nav-link">About ▾</a>
+          <a href="#footer" class="nav-link dropdown-toggle">About ▾</a>
           <ul class="dropdown-menu">
-            <li><a href="/home/index.html#venue" class="dropdown-link about-dropdown">Venue</a></li>
-            <li><a href="/home/index.html#sponsors" class="dropdown-link about-dropdown">Sponsors</a></li>
-            <li><a href="/home/index.html#contact" class="dropdown-link about-dropdown">Contact</a></li>
+            <li><a href="/#venue" class="dropdown-link about-dropdown">Venue</a></li>
+            <li><a href="/#sponsors" class="dropdown-link about-dropdown">Sponsors</a></li>
+            <li><a href="/#contact" class="dropdown-link about-dropdown">Contact</a></li>
           </ul>
         </li>
       </ul>
@@ -92,7 +101,6 @@
   <!-- Hero Section -->
   <section class="hero">
     <h1 class="main-title">INTEGRATION FEST 2026</h1>
-    <p class="subtitle">∫(Innovation + Creativity + Technology) dx</p>
     <p class="tagline">The annual techno-cultural sports fest of Indian Statistical Institute, Kolkata. Join thousands
       of students from across India for decades of excellence in ideas, creativity, and talent.</p>
     <div class="cta-buttons">
@@ -330,13 +338,6 @@
     <!-- Main Footer -->
     <div class="footer-bottom">
       <div class="footer-logo">INTEGRATION FEST 2026</div>
-      <div class="footer-links">
-        <a href="/home/index.html#tech" class="footer-link">Tech Events</a>
-        <a href="/cultural/index.html" class="footer-link">Cultural Events</a>
-        <a href="/sports/index.html" class="footer-link">Sports Events</a>
-        <a href="/gallery/index.html" class="footer-link">Gallery</a>
-        <a href="/home/index.html#register-header" class="footer-link">Register</a>
-      </div>
       <p class="copyright">
         © 2026 Indian Statistical Institute, Kolkata. All rights reserved.
       </p>

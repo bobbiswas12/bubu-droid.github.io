@@ -2,4 +2,4 @@
 
 Repository for personal GitHub page.
 
-[websitelink]: https://bubudroid.github.io
+[websitelink]: https://bubu-droid.github.io
