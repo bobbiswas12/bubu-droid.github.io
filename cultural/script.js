@@ -31,7 +31,8 @@ class Particle {
     }
     
     draw() {
-        ctx.fillStyle = 'rgba(102, 126, 234, 0.5)';
+        const isLightMode = document.body.classList.contains('light-mode');
+        ctx.fillStyle = isLightMode ? 'rgba(138, 43, 226, 0.3)' : 'rgba(138, 43, 226, 0.6)';
         ctx.beginPath();
         ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
         ctx.fill();
@@ -41,7 +42,8 @@ class Particle {
 const particles = Array.from({ length: 80 }, () => new Particle());
 
 function animate() {
-    ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+    const isLightMode = document.body.classList.contains('light-mode');
+    ctx.fillStyle = isLightMode ? 'rgba(250, 248, 255, 0.1)' : 'rgba(10, 0, 21, 0.05)';
     ctx.fillRect(0, 0, canvas.width, canvas.height);
     
     particles.forEach(p => { 
@@ -58,6 +60,31 @@ animate();
 window.addEventListener('resize', () => {
     resizeCanvas();
     particles.forEach(p => p.reset());
+});
+
+// Theme Toggle
+const themeToggle = document.getElementById('themeToggle');
+const toggleIcon = themeToggle.querySelector('.toggle-icon');
+
+// Check for saved theme preference or default to 'dark'
+const currentTheme = localStorage.getItem('theme') || 'dark';
+if (currentTheme === 'light') {
+    document.body.classList.add('light-mode');
+    toggleIcon.textContent = '☀️';
+}
+
+themeToggle.addEventListener('click', () => {
+    document.body.classList.toggle('light-mode');
+    
+    if (document.body.classList.contains('light-mode')) {
+        toggleIcon.textContent = '☀️';
+        localStorage.setItem('theme', 'light');
+        showNotification('Light mode activated! ☀️');
+    } else {
+        toggleIcon.textContent = '🌙';
+        localStorage.setItem('theme', 'dark');
+        showNotification('Dark mode activated! 🌙');
+    }
 });
 
 // Navigation Elements
@@ -170,29 +197,38 @@ document.querySelectorAll('.page-section').forEach(section => {
 document.querySelectorAll('.poster-btn').forEach(btn => {
     btn.addEventListener('click', (e) => {
         e.preventDefault();
-        showNotification('Posters will be released soon! Stay tuned!');
+        showNotification('✨ Posters will be released soon! Stay tuned for updates! ✨');
     });
 });
 
 // Notification Function
 function showNotification(message) {
+    // Remove existing notification if any
+    const existingNotification = document.querySelector('.notification');
+    if (existingNotification) {
+        existingNotification.remove();
+    }
+    
     const notification = document.createElement('div');
+    notification.className = 'notification';
     notification.textContent = message;
     notification.style.cssText = `
         position: fixed;
         top: 100px;
         left: 50%;
         transform: translateX(-50%);
-        background: linear-gradient(135deg, #667eea, #764ba2);
+        background: linear-gradient(135deg, #8a2be2, #9d4edd, #c77dff);
         color: white;
         padding: 20px 40px;
-        border-radius: 10px;
+        border-radius: 15px;
         font-weight: 600;
         z-index: 2000;
-        box-shadow: 0 10px 40px rgba(102, 126, 234, 0.5);
+        box-shadow: 0 10px 50px rgba(138, 43, 226, 0.6);
         animation: slideDown 0.5s ease;
         max-width: 90%;
         text-align: center;
+        font-size: 1rem;
+        border: 2px solid rgba(255, 255, 255, 0.3);
     `;
     
     // Add keyframes
@@ -258,5 +294,79 @@ document.querySelectorAll('.feature-card').forEach(card => {
     });
 });
 
+// Add ripple effect to buttons
+document.querySelectorAll('.btn').forEach(button => {
+    button.addEventListener('click', function(e) {
+        const ripple = document.createElement('span');
+        const rect = this.getBoundingClientRect();
+        const size = Math.max(rect.width, rect.height);
+        const x = e.clientX - rect.left - size / 2;
+        const y = e.clientY - rect.top - size / 2;
+        
+        ripple.style.cssText = `
+            position: absolute;
+            width: ${size}px;
+            height: ${size}px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.6);
+            left: ${x}px;
+            top: ${y}px;
+            transform: scale(0);
+            animation: ripple 0.6s ease-out;
+            pointer-events: none;
+        `;
+        
+        if (!document.getElementById('ripple-styles')) {
+            const style = document.createElement('style');
+            style.id = 'ripple-styles';
+            style.textContent = `
+                @keyframes ripple {
+                    to {
+                        transform: scale(4);
+                        opacity: 0;
+                    }
+                }
+                .btn {
+                    position: relative;
+                    overflow: hidden;
+                }
+            `;
+            document.head.appendChild(style);
+        }
+        
+        this.appendChild(ripple);
+        setTimeout(() => ripple.remove(), 600);
+    });
+});
+
 // Add smooth scroll behavior
 document.documentElement.style.scrollBehavior = 'smooth';
+
+// Welcome message on first visit
+if (!sessionStorage.getItem('culturalWelcomeShown')) {
+    setTimeout(() => {
+        showNotification('🎭 Welcome to Integration Fest 2026 Cultural Events! 🎨');
+        sessionStorage.setItem('culturalWelcomeShown', 'true');
+    }, 1000);
+}
+
+// Animate mandala on scroll
+const mandala = document.querySelector('.mandala');
+if (mandala) {
+    window.addEventListener('scroll', () => {
+        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+        const mandalaSection = document.querySelector('.cultural-design');
+        
+        if (mandalaSection) {
+            const sectionTop = mandalaSection.offsetTop;
+            const sectionHeight = mandalaSection.offsetHeight;
+            const windowHeight = window.innerHeight;
+            
+            if (scrollTop + windowHeight > sectionTop && scrollTop < sectionTop + sectionHeight) {
+                const scrollProgress = (scrollTop + windowHeight - sectionTop) / (sectionHeight + windowHeight);
+                const rotation = scrollProgress * 360;
+                mandala.style.transform = `rotate(${rotation}deg) scale(${1 + scrollProgress * 0.2})`;
+            }
+        }
+    }, { passive: true });
+}
