@@ -37,10 +37,6 @@ body.light-mode {
     box-sizing: border-box;
 }
 
-html {
-    scroll-behavior: smooth;
-}
-
 body {
     font-family: 'Inter', 'Segoe UI', sans-serif;
     background: var(--bg-primary);
@@ -64,37 +60,6 @@ body {
 
 body.light-mode #canvas3d {
     opacity: 0.15;
-}
-
-.theme-toggle {
-    position: fixed;
-    bottom: 30px;
-    left: 30px;
-    width: 60px;
-    height: 60px;
-    background: linear-gradient(135deg, var(--accent-primary), var(--accent-tertiary));
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    z-index: 1000;
-    box-shadow: 0 8px 25px var(--shadow-color);
-    transition: all 0.4s ease;
-    border: 3px solid var(--bg-primary);
-}
-
-.theme-toggle:hover {
-    transform: scale(1.15) rotate(15deg);
-}
-
-.toggle-icon {
-    font-size: 1.8rem;
-    transition: transform 0.4s ease;
-}
-
-body.light-mode .toggle-icon {
-    transform: rotate(180deg);
 }
 
 .navbar {
@@ -567,87 +532,7 @@ body.light-mode .toggle-icon {
 }
 
 @media (max-width: 768px) {
-    .theme-toggle {
-        width: 50px;
-        height: 50px;
-        bottom: 20px;
-        right: 20px;
-    }
-
-    .navbar {
-        padding: 15px 20px;
-    }
-
-    .nav-toggle {
-        display: flex;
-    }
-
-    .nav-toggle.active span:nth-child(1) {
-        transform: rotate(45deg) translate(8px, 8px);
-    }
-
-    .nav-toggle.active span:nth-child(2) {
-        opacity: 0;
-    }
-
-    .nav-toggle.active span:nth-child(3) {
-        transform: rotate(-45deg) translate(8px, -8px);
-    }
-
-    .nav-menu {
-        position: fixed;
-        top: 70px;
-        right: -100%;
-        width: 280px;
-        height: calc(100vh - 70px);
-        flex-direction: column;
-        background: var(--navbar-bg);
-        backdrop-filter: blur(20px);
-        padding: 30px 20px;
-        gap: 0;
-        border-left: 1px solid var(--border-color);
-        transition: right 0.4s ease;
-        box-shadow: -5px 0 20px rgba(0, 0, 0, 0.5);
-        overflow-y: auto;
-    }
-
-    .nav-menu.active {
-        right: 0;
-    }
-
-    .nav-item {
-        width: 100%;
-        border-bottom: 1px solid var(--border-color);
-        padding: 15px 0;
-    }
-
-    .nav-link {
-        width: 100%;
-        padding: 12px 15px;
-        font-size: 1.1rem;
-    }
-
-    .dropdown-menu {
-        position: static;
-        opacity: 1;
-        visibility: visible;
-        transform: none;
-        background: rgba(124, 77, 255, 0.05);
-        margin-top: 10px;
-        border: none;
-        border-left: 2px solid var(--accent-primary);
-        max-height: 0;
-        overflow: hidden;
-        padding: 0;
-        transition: max-height 0.3s ease;
-    }
-
-    .dropdown.active .dropdown-menu {
-        max-height: 500px;
-        padding: 12px 0;
-    }
-
-    .hero {
+     .hero {
         padding: 120px 20px 60px;
         min-height: 90vh;
     }

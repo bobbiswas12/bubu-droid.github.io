@@ -184,13 +184,18 @@ function animateChaos() {
 
 animateChaos();
 
-// Minimal Particle Background
+// Adaptive Particle Background
 const canvas = document.getElementById("canvas3d");
 const ctx = canvas.getContext("2d");
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
 
-class MinimalParticle {
+function resizeCanvas() {
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+}
+resizeCanvas();
+window.addEventListener("resize", resizeCanvas);
+
+class Particle {
   constructor() {
     this.reset();
   }
@@ -198,12 +203,12 @@ class MinimalParticle {
   reset() {
     this.x = Math.random() * canvas.width;
     this.y = Math.random() * canvas.height;
-    this.vx = (Math.random() - 0.5) * 0.5;
-    this.vy = (Math.random() - 0.5) * 0.5;
+    this.vx = (Math.random() - 0.5) * 0.7;
+    this.vy = (Math.random() - 0.5) * 0.7;
     this.size = Math.random() * 2 + 1;
   }
 
-  update() {
+  move() {
     this.x += this.vx;
     this.y += this.vy;
 
@@ -211,205 +216,158 @@ class MinimalParticle {
     if (this.y < 0 || this.y > canvas.height) this.vy *= -1;
   }
 
-  draw() {
-    ctx.fillStyle = "rgba(102, 126, 234, 0.3)";
+  draw(color) {
     ctx.beginPath();
     ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+    ctx.fillStyle = color;
     ctx.fill();
   }
 }
 
-const minimalParticles = Array.from(
-  { length: 50 },
-  () => new MinimalParticle(),
-);
+const particles = Array.from({ length: 70 }, () => new Particle());
 
-function animateMinimal() {
-  ctx.fillStyle = "rgba(0, 0, 0, 0.001)";
+function isLightMode() {
+  return document.body.classList.contains("light-mode");
+}
+
+function animate() {
+  const light = isLightMode();
+
+  // Fade trail effect — use light or dark background tint
+  ctx.globalCompositeOperation = "source-over";
+  ctx.fillStyle = light
+    ? "rgba(255, 255, 255, 0.2)" // subtle white fade
+    : "rgba(0, 0, 0, 0.2)"; // subtle black fade
   ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-  minimalParticles.forEach((p) => {
-    p.update();
-    p.draw();
+  // Particle drawing
+  ctx.globalCompositeOperation = light ? "source-over" : "lighter";
+  const particleColor = light
+    ? "rgba(60, 80, 200, 0.5)" // crisp bluish tone for light mode
+    : "rgba(130, 160, 255, 0.4)"; // glowing tone for dark mode
+
+  particles.forEach((p) => {
+    p.move();
+    p.draw(particleColor);
   });
 
-  requestAnimationFrame(animateMinimal);
+  requestAnimationFrame(animate);
 }
 
-animateMinimal();
+animate();
 
-// Animated Graph at Footer
+// Adaptive Animated Footer Graph
 const graphCanvas = document.getElementById("graphCanvas");
-const graphCtx = graphCanvas.getContext("2d");
-graphCanvas.width = graphCanvas.offsetWidth;
-graphCanvas.height = graphCanvas.offsetHeight;
+const g = graphCanvas.getContext("2d");
 
-let graphTime = 0;
-const graphPoints = [];
-const maxGraphPoints = 200;
+function resizeGraphCanvas() {
+  graphCanvas.width = graphCanvas.offsetWidth;
+  graphCanvas.height = graphCanvas.offsetHeight;
+}
+resizeGraphCanvas();
+window.addEventListener("resize", resizeGraphCanvas);
 
-function drawGraph() {
-  graphCtx.fillStyle = "rgba(0, 0, 0, 0.1)";
-  graphCtx.fillRect(0, 0, graphCanvas.width, graphCanvas.height);
+let t = 0;
+const points = [];
+const maxPoints = 200;
 
-  // Add new point
+function isLightMode() {
+  return document.body.classList.contains("light-mode");
+}
+
+function animateGraph() {
+  const light = isLightMode();
+
+  // Smooth background fade
+  g.globalCompositeOperation = "source-over";
+  g.fillStyle = light ? "rgba(255, 255, 255, 0.2)" : "rgba(0, 0, 0, 0.2)";
+  g.fillRect(0, 0, graphCanvas.width, graphCanvas.height);
+
+  // Generate new waveform point
   const newY =
     graphCanvas.height / 2 +
-    Math.sin(graphTime * 0.05) * 60 +
-    Math.cos(graphTime * 0.03) * 40 +
-    Math.sin(graphTime * 0.02) * 30;
+    Math.sin(t * 0.05) * 60 +
+    Math.cos(t * 0.03) * 40 +
+    Math.sin(t * 0.02) * 30;
 
-  graphPoints.push(newY);
-  if (graphPoints.length > maxGraphPoints) {
-    graphPoints.shift();
-  }
+  points.push(newY);
+  if (points.length > maxPoints) points.shift();
 
-  // Draw grid lines
-  graphCtx.strokeStyle = "rgba(102, 126, 234, 0.1)";
-  graphCtx.lineWidth = 1;
+  // Grid lines
+  g.lineWidth = 1;
+  g.strokeStyle = light ? "rgba(0, 0, 0, 0.07)" : "rgba(102, 126, 234, 0.1)";
   for (let i = 0; i < 5; i++) {
     const y = (graphCanvas.height / 4) * i;
-    graphCtx.beginPath();
-    graphCtx.moveTo(0, y);
-    graphCtx.lineTo(graphCanvas.width, y);
-    graphCtx.stroke();
+    g.beginPath();
+    g.moveTo(0, y);
+    g.lineTo(graphCanvas.width, y);
+    g.stroke();
   }
 
-  // Draw the graph line
-  graphCtx.beginPath();
-  graphCtx.strokeStyle = "rgba(102, 126, 234, 0.8)";
-  graphCtx.lineWidth = 2;
-
-  const pointSpacing = graphCanvas.width / maxGraphPoints;
-  graphPoints.forEach((y, i) => {
+  // Graph line
+  const pointSpacing = graphCanvas.width / maxPoints;
+  g.beginPath();
+  points.forEach((y, i) => {
     const x = i * pointSpacing;
-    if (i === 0) {
-      graphCtx.moveTo(x, y);
-    } else {
-      graphCtx.lineTo(x, y);
-    }
+    if (i === 0) g.moveTo(x, y);
+    else g.lineTo(x, y);
   });
-  graphCtx.stroke();
 
-  // Draw gradient fill under line
-  if (graphPoints.length > 1) {
-    graphCtx.lineTo(graphCanvas.width, graphCanvas.height);
-    graphCtx.lineTo(0, graphCanvas.height);
-    graphCtx.closePath();
+  g.lineWidth = 2;
+  g.strokeStyle = light ? "rgba(60, 80, 200, 0.8)" : "rgba(130, 160, 255, 0.8)";
+  g.shadowBlur = light ? 0 : 10;
+  g.shadowColor = light ? "transparent" : "rgba(102, 126, 234, 0.7)";
+  g.stroke();
+  g.shadowBlur = 0;
 
-    const gradient = graphCtx.createLinearGradient(0, 0, 0, graphCanvas.height);
-    gradient.addColorStop(0, "rgba(102, 126, 234, 0.3)");
-    gradient.addColorStop(1, "rgba(102, 126, 234, 0)");
-    graphCtx.fillStyle = gradient;
-    graphCtx.fill();
+  // Gradient fill
+  const grad = g.createLinearGradient(0, 0, 0, graphCanvas.height);
+  if (light) {
+    grad.addColorStop(0, "rgba(60, 80, 200, 0.15)");
+    grad.addColorStop(1, "rgba(60, 80, 200, 0)");
+  } else {
+    grad.addColorStop(0, "rgba(102, 126, 234, 0.25)");
+    grad.addColorStop(1, "rgba(102, 126, 234, 0)");
   }
 
-  // Draw moving dots on the line
-  if (graphPoints.length > 0) {
-    for (let i = 0; i < 3; i++) {
-      const idx = Math.floor(graphPoints.length * (i / 3));
-      if (idx < graphPoints.length) {
-        const x = idx * pointSpacing;
-        const y = graphPoints[idx];
+  g.lineTo(graphCanvas.width, graphCanvas.height);
+  g.lineTo(0, graphCanvas.height);
+  g.closePath();
+  g.fillStyle = grad;
+  g.fill();
 
-        graphCtx.beginPath();
-        graphCtx.arc(x, y, 4, 0, Math.PI * 2);
-        graphCtx.fillStyle = "rgba(240, 147, 251, 0.8)";
-        graphCtx.fill();
+  // Floating dots
+  const dotColor = light
+    ? "rgba(60, 80, 200, 0.7)"
+    : "rgba(240, 147, 251, 0.8)";
+  const haloColor = light
+    ? "rgba(60, 80, 200, 0.2)"
+    : "rgba(240, 147, 251, 0.4)";
 
-        graphCtx.beginPath();
-        graphCtx.arc(x, y, 8, 0, Math.PI * 2);
-        graphCtx.strokeStyle = "rgba(240, 147, 251, 0.4)";
-        graphCtx.lineWidth = 2;
-        graphCtx.stroke();
-      }
+  for (let i = 0; i < 3; i++) {
+    const idx = Math.floor(points.length * (i / 3));
+    if (idx < points.length) {
+      const x = idx * pointSpacing;
+      const y = points[idx];
+
+      g.beginPath();
+      g.arc(x, y, 3, 0, Math.PI * 2);
+      g.fillStyle = dotColor;
+      g.fill();
+
+      g.beginPath();
+      g.arc(x, y, 7, 0, Math.PI * 2);
+      g.strokeStyle = haloColor;
+      g.lineWidth = 2;
+      g.stroke();
     }
   }
 
-  graphTime++;
-  requestAnimationFrame(drawGraph);
+  t++;
+  requestAnimationFrame(animateGraph);
 }
 
-drawGraph();
-
-// Navigation with improved dropdown handling
-const navToggle = document.getElementById("navToggle");
-const navMenu = document.getElementById("navMenu");
-const dropdowns = document.querySelectorAll(".dropdown");
-
-if (navToggle && navMenu) {
-  navToggle.addEventListener("click", (e) => {
-    e.stopPropagation();
-    navToggle.classList.toggle("active");
-    navMenu.classList.toggle("active");
-  });
-}
-
-// Dropdown Toggle for Mobile
-dropdowns.forEach((dropdown) => {
-  const dropdownToggle = dropdown.querySelector(".dropdown-toggle");
-
-  if (dropdownToggle) {
-    dropdownToggle.addEventListener("click", function (e) {
-      if (window.innerWidth <= 768) {
-        e.preventDefault();
-        e.stopPropagation();
-
-        const isThisActive = dropdown.classList.contains("active");
-        dropdowns.forEach((d) => d.classList.remove("active"));
-
-        if (!isThisActive) {
-          dropdown.classList.add("active");
-        }
-      }
-    });
-  }
-});
-
-// Smooth Scrolling
-document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
-  anchor.addEventListener("click", function (e) {
-    const href = this.getAttribute("href");
-
-    if (href === "#") return;
-
-    if (
-      this.classList.contains("dropdown-toggle") &&
-      window.innerWidth <= 768
-    ) {
-      return;
-    }
-
-    e.preventDefault();
-    const target = document.querySelector(href);
-    if (target) {
-      target.scrollIntoView({ behavior: "smooth", block: "start" });
-      if (navMenu) navMenu.classList.remove("active");
-      if (navToggle) navToggle.classList.remove("active");
-      dropdowns.forEach((dropdown) => dropdown.classList.remove("active"));
-    }
-  });
-});
-
-// Close menu when clicking outside
-document.addEventListener("click", (e) => {
-  if (navMenu && navToggle) {
-    if (!navMenu.contains(e.target) && !navToggle.contains(e.target)) {
-      navMenu.classList.remove("active");
-      navToggle.classList.remove("active");
-      dropdowns.forEach((dropdown) => dropdown.classList.remove("active"));
-    }
-  }
-});
-
-// Handle dropdown on window resize
-window.addEventListener("resize", () => {
-  if (window.innerWidth > 768) {
-    if (navMenu) navMenu.classList.remove("active");
-    if (navToggle) navToggle.classList.remove("active");
-    dropdowns.forEach((dropdown) => dropdown.classList.remove("active"));
-  }
-});
+animateGraph();
 
 // Resize handler
 window.addEventListener("resize", () => {
@@ -419,68 +377,6 @@ window.addEventListener("resize", () => {
   chaosCanvas.height = window.innerHeight;
   graphCanvas.width = graphCanvas.offsetWidth;
   graphCanvas.height = graphCanvas.offsetHeight;
-});
-
-// Smooth scroll with navbar offset that supports hrefs like "/home/index.html#tech" and "#tech"
-// Also triggers tab activation for dropdown links (if applicable).
-document.querySelectorAll('a[href*="#"]').forEach((anchor) => {
-  anchor.addEventListener("click", function (e) {
-    try {
-      // Resolve absolute URL of the link relative to current origin
-      const linkUrl = new URL(this.href, location.href);
-
-      // Normalize pathnames to ignore trailing slash differences
-      const normalize = (p) => (p || "/").replace(/\/$/, "");
-
-      // Only intercept if the link targets the same page (path + search)
-      const samePath =
-        normalize(linkUrl.pathname) === normalize(location.pathname);
-      const sameSearch = linkUrl.search === location.search;
-      const hasHash = !!linkUrl.hash;
-
-      if (!hasHash || !samePath || !sameSearch) {
-        // Let the browser handle navigation to other pages or links without hash
-        return;
-      }
-
-      // At this point we are linking to an id on the same page
-      const hash = linkUrl.hash; // includes the leading '#'
-      const target = document.querySelector(hash);
-      if (!target) return;
-
-      e.preventDefault();
-
-      // Compute offset (navbar height + 20px buffer)
-      const navbar = document.querySelector(".navbar");
-      const navHeight = navbar ? navbar.offsetHeight : 0;
-      const offset = navHeight + 20;
-
-      // Calculate final scroll position and perform smooth scroll
-      const elementPosition =
-        target.getBoundingClientRect().top + window.scrollY;
-      const scrollTo = Math.max(0, elementPosition - offset);
-
-      window.scrollTo({
-        top: scrollTo,
-        behavior: "smooth",
-      });
-
-      // If this link should also trigger a footer tab activation (dropdown-link),
-      // click the matching tab-button after a small delay so your existing tab handler runs.
-      if (this.classList.contains("dropdown-link")) {
-        const targetTabButton = document.querySelector(
-          `.tab-button[data-tab="${hash.replace("#", "")}"]`,
-        );
-        if (targetTabButton) {
-          // Delay should be at least the visual scroll time; adjust if needed
-          setTimeout(() => targetTabButton.click(), 600);
-        }
-      }
-    } catch (err) {
-      // If URL parsing fails for any reason, do nothing and allow default behavior
-      return;
-    }
-  });
 });
 
 // Tab switching functionality for footer buttons
@@ -499,74 +395,4 @@ tabButtons.forEach((button) => {
     button.classList.add("active");
     document.getElementById(target).classList.add("active");
   });
-});
-
-// Smooth scroll + tab activation from dropdown links
-document.querySelectorAll(".about-dropdown").forEach((link) => {
-  link.addEventListener("click", (e) => {
-    // Only intercept if the link points to the current page
-    const linkUrl = new URL(link.href, location.href);
-    const normalize = (p) => (p || "/").replace(/\/$/, "");
-    const samePage =
-      normalize(linkUrl.pathname) === normalize(location.pathname) &&
-      linkUrl.search === location.search &&
-      linkUrl.hash;
-
-    if (!samePage) return; // let browser handle other pages normally
-
-    e.preventDefault();
-    const targetId = linkUrl.hash.replace("#", "");
-
-    const footerHeader = document.querySelector("#footer-tabs"); // adjust to your actual footer container
-    const targetButton = document.querySelector(
-      `.tab-button[data-tab="${targetId}"]`,
-    );
-
-    // Smooth scroll with navbar offset + 20px buffer
-    const navbar = document.querySelector(".navbar");
-    const navHeight = navbar ? navbar.offsetHeight : 0;
-    const offset = navHeight + 20;
-
-    if (footerHeader) {
-      const elementPosition =
-        footerHeader.getBoundingClientRect().top + window.scrollY;
-      const scrollTo = Math.max(0, elementPosition - offset);
-      window.scrollTo({ top: scrollTo, behavior: "smooth" });
-    }
-
-    // Activate the correct tab after scroll
-    if (targetButton) {
-      setTimeout(() => targetButton.click(), 600);
-    }
-  });
-});
-
-function setNavMenuTop() {
-  const navbar = document.querySelector(".navbar");
-  const navMenu = document.querySelector(".nav-menu");
-
-  if (navbar && navMenu) {
-    const navHeight = navbar.offsetHeight;
-    navMenu.style.top = `${navHeight}px`;
-  }
-}
-
-// Run on load and resize
-window.addEventListener("DOMContentLoaded", setNavMenuTop);
-window.addEventListener("resize", setNavMenuTop);
-
-// Theme Toggle
-const themeToggle = document.getElementById("themeToggle");
-const toggleIcon = themeToggle.querySelector(".toggle-icon");
-
-themeToggle.addEventListener("click", () => {
-  document.body.classList.toggle("light-mode");
-
-  if (document.body.classList.contains("light-mode")) {
-    toggleIcon.textContent = "☀️";
-    showNotification("Light mode activated! ☀️");
-  } else {
-    toggleIcon.textContent = "🌙";
-    showNotification("Dark mode activated! 🌙");
-  }
 });
