@@ -44,7 +44,7 @@ dropdowns.forEach((dropdown) => {
 
   if (dropdownToggle) {
     dropdownToggle.addEventListener("click", function (e) {
-      if (window.innerWidth <= 768) {
+      if (window.innerWidth <= 1000) {
         e.preventDefault();
         e.stopPropagation();
 
@@ -71,7 +71,7 @@ document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
 
     if (
       this.classList.contains("dropdown-toggle") &&
-      window.innerWidth <= 768
+      window.innerWidth <= 1000
     ) {
       return;
     }
@@ -100,7 +100,7 @@ document.addEventListener("click", (e) => {
 
 // Handle dropdown on window resize
 window.addEventListener("resize", () => {
-  if (window.innerWidth > 768) {
+  if (window.innerWidth > 1000) {
     if (navMenu) navMenu.classList.remove("active");
     if (navToggle) navToggle.classList.remove("active");
     dropdowns.forEach((dropdown) => dropdown.classList.remove("active"));
