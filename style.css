@@ -228,7 +228,7 @@ body {
   position: absolute;
   top: calc(100% + 10px);
   left: 0;
-  background: var(--black-deep);
+  background: var(--navbar-bg);
   border: 1px solid var(--blue-very-faint);
   border-left: 2px solid var(--accent-primary);
   border-radius: 12px;
