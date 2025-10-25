@@ -111,7 +111,7 @@ body {
   left: 0;
   right: 0;
   width: 100%;
-  background: var(--black-deep);
+  background: var(--navbar-bg);
   backdrop-filter: blur(20px);
   z-index: 1000;
   padding: 20px 40px;
@@ -222,6 +222,7 @@ body {
 
 .dropdown {
   position: relative;
+  cursor: pointer;
 }
 
 .dropdown-menu {

@@ -194,6 +194,7 @@ body.light-mode #canvas3d {
 /* Dropdown */
 .dropdown {
   position: relative;
+  cursor: pointer;
 }
 
 .dropdown-menu {
