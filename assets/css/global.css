@@ -50,10 +50,10 @@ body.light-mode .toggle-icon {
 
   .nav-menu {
     position: fixed;
-    top: 60px;
+    /* top: 60px; */
     right: -100%;
     width: 280px;
-    height: calc(100vh - 70px);
+    /* height: calc(100vh - 70px); */
     flex-direction: column;
     background: var(--navbar-bg);
     backdrop-filter: blur(20px);
@@ -61,7 +61,7 @@ body.light-mode .toggle-icon {
     gap: 0;
     border-left: 1px solid var(--color-alpha-20);
     transition: right 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    box-shadow: -5px 0 20px rgba(0, 0, 0, 0.5);
+    box-shadow: -5px 15px 20px rgba(0, 0, 0, 0.5);
     overflow-y: auto;
   }
 
