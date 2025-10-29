@@ -173,13 +173,13 @@ document.querySelectorAll(".btn").forEach((button) => {
   });
 });
 
-// Welcome message on first visit
-if (!sessionStorage.getItem("culturalWelcomeShown")) {
-  setTimeout(() => {
-    showNotification("🎭 Welcome to Integration Fest 2026 Cultural Events! 🎨");
-    sessionStorage.setItem("culturalWelcomeShown", "true");
-  }, 1000);
-}
+// // Welcome message on first visit
+// if (!sessionStorage.getItem("culturalWelcomeShown")) {
+//   setTimeout(() => {
+//     showNotification("🎭 Welcome to Integration Fest 2026 Cultural Events! 🎨");
+//     sessionStorage.setItem("culturalWelcomeShown", "true");
+//   }, 1000);
+// }
 
 // Animate mandala on scroll
 const mandala = document.querySelector(".mandala");

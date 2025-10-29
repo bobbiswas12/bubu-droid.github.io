@@ -511,26 +511,26 @@ document.querySelectorAll(".view-btn, .tab-btn").forEach((button) => {
 });
 
 setTimeout(() => {
-  const notification = document.createElement("div");
-  notification.style.cssText = `
-                position: fixed;
-                top: 100px;
-                left: 50%;
-                transform: translateX(-50%);
-                background: linear-gradient(135deg, #ffeb3b, #ff9800);
-                color: #1a1a1a;
-                padding: 20px 40px;
-                border-radius: 12px;
-                font-weight: 600;
-                z-index: 2000;
-                box-shadow: 0 10px 40px rgba(255, 235, 59, 0.5);
-                animation: slideDown 0.5s ease;
-                border: 2px solid rgba(255, 215, 0, 0.5);
-                max-width: 90%;
-                text-align: center;
-            `;
-  notification.textContent =
-    "📸 Welcome to the Gallery! Click any image to view in fullscreen";
+  // const notification = document.createElement("div");
+  // notification.style.cssText = `
+  //               position: fixed;
+  //               top: 100px;
+  //               left: 50%;
+  //               transform: translateX(-50%);
+  //               background: linear-gradient(135deg, #ffeb3b, #ff9800);
+  //               color: #1a1a1a;
+  //               padding: 20px 40px;
+  //               border-radius: 12px;
+  //               font-weight: 600;
+  //               z-index: 2000;
+  //               box-shadow: 0 10px 40px rgba(255, 235, 59, 0.5);
+  //               animation: slideDown 0.5s ease;
+  //               border: 2px solid rgba(255, 215, 0, 0.5);
+  //               max-width: 90%;
+  //               text-align: center;
+  //           `;
+  // notification.textContent =
+  //   "📸 Welcome to the Gallery! Click any image to view in fullscreen";
 
   const slideStyle = document.createElement("style");
   slideStyle.textContent = `

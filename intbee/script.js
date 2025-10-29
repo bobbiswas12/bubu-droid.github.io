@@ -367,16 +367,16 @@ document.querySelectorAll(".date-card").forEach((card) => {
   dateObserver.observe(card);
 });
 
-// Welcome message on first visit
-const welcomeShown = sessionStorage.getItem("intbeeWelcomeShown");
-if (!welcomeShown) {
-  setTimeout(() => {
-    showNotification(
-      "🐝 Welcome to Integration Bee 2026! Let's Get In-credible! 📐",
-    );
-    sessionStorage.setItem("intbeeWelcomeShown", "true");
-  }, 1000);
-}
+// // Welcome message on first visit
+// const welcomeShown = sessionStorage.getItem("intbeeWelcomeShown");
+// if (!welcomeShown) {
+//   setTimeout(() => {
+//     showNotification(
+//       "🐝 Welcome to Integration Bee 2026! Let's Get In-credible! 📐",
+//     );
+//     sessionStorage.setItem("intbeeWelcomeShown", "true");
+//   }, 1000);
+// }
 
 // Add honeycomb pattern animation on hover for hexagons
 canvas.addEventListener("mousemove", (e) => {
