@@ -50,10 +50,10 @@ body.light-mode .toggle-icon {
 
   .nav-menu {
     position: fixed;
-    /* top: 60px; */
+    top: 62px;
     right: -100%;
     width: 280px;
-    /* height: calc(100vh - 70px); */
+    height: calc(100vh - 62px);
     flex-direction: column;
     background: var(--navbar-bg);
     backdrop-filter: blur(20px);
@@ -131,5 +131,10 @@ body.light-mode .toggle-icon {
 @media (max-width: 480px) {
   .nav-logo {
     font-size: 1.2rem;
+  }
+
+  .nav-menu {
+    top: 54px;
+    height: calc(100vh - 54px);
   }
 }
