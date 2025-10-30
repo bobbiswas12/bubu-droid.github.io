@@ -389,16 +389,16 @@ document.querySelectorAll(".btn-hero").forEach((button) => {
   });
 });
 
-// Welcome message on first visit
-const welcomeShown = sessionStorage.getItem("mtrpWelcomeShown");
-if (!welcomeShown) {
-  setTimeout(() => {
-    showNotification(
-      "📐 Welcome to MTRP 2026! Challenge Your Mathematical Prowess!",
-    );
-    sessionStorage.setItem("mtrpWelcomeShown", "true");
-  }, 1000);
-}
+// // Welcome message on first visit
+// const welcomeShown = sessionStorage.getItem("mtrpWelcomeShown");
+// if (!welcomeShown) {
+//   setTimeout(() => {
+//     showNotification(
+//       "📐 Welcome to MTRP 2026! Challenge Your Mathematical Prowess!",
+//     );
+//     sessionStorage.setItem("mtrpWelcomeShown", "true");
+//   }, 1000);
+// }
 
 // Mouse interaction with shapes
 canvas.addEventListener("mousemove", (e) => {

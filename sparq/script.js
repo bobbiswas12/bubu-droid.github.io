@@ -218,15 +218,15 @@ document.querySelectorAll(".date-card").forEach((card) => {
 });
 
 // Welcome message on first visit
-const welcomeShown = sessionStorage.getItem("welcomeShown");
-if (!welcomeShown) {
-  setTimeout(() => {
-    showNotification(
-      "🚀 Welcome to SPARQ 2026! Where Numbers Meet Innovation 📊",
-    );
-    sessionStorage.setItem("welcomeShown", "true");
-  }, 1000);
-}
+// const welcomeShown = sessionStorage.getItem("welcomeShown");
+// if (!welcomeShown) {
+//   setTimeout(() => {
+//     showNotification(
+//       "🚀 Welcome to SPARQ 2026! Where Numbers Meet Innovation 📊",
+//     );
+//     sessionStorage.setItem("welcomeShown", "true");
+//   }, 1000);
+// }
 
 // Floating stats animation
 const prizeAmount = document.querySelector(".prize-amount");

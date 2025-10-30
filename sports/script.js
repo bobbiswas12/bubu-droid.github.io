@@ -189,10 +189,10 @@ document.querySelectorAll(".btn").forEach((button) => {
   });
 });
 
-// Welcome message on first visit
-if (!sessionStorage.getItem("welcomeShown")) {
-  setTimeout(() => {
-    showNotification("🏆 Welcome to Integration Fest 2026 Sports Events! 🎉");
-    sessionStorage.setItem("welcomeShown", "true");
-  }, 1000);
-}
+// // Welcome message on first visit
+// if (!sessionStorage.getItem("welcomeShown")) {
+//   setTimeout(() => {
+//     showNotification("🏆 Welcome to Integration Fest 2026 Sports Events! 🎉");
+//     sessionStorage.setItem("welcomeShown", "true");
+//   }, 1000);
+// }
