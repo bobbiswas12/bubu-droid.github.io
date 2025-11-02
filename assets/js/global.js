@@ -7,7 +7,7 @@ const themeToggle = document.getElementById("themeToggle");
 const toggleIcon = themeToggle.querySelector(".toggle-icon");
 
 // Check for saved theme preference or default to 'dark'
-const currentTheme = localStorage.getItem("theme") || "dark";
+const currentTheme = localStorage.getItem("theme") || "light";
 if (currentTheme === "light") {
   document.body.classList.add("light-mode");
   toggleIcon.textContent = "☀️";
